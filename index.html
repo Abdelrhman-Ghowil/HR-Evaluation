@@ -1,0 +1,3970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Human Capital Insights</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+:root {
+    --primary-color: #4361ee;
+    --primary-light: #6c87f0;
+    --primary-dark: #2541c9;
+    --secondary-color: #6c757d;
+    --secondary-light: #868e96;
+    --secondary-dark: #495057;
+    --gray-100: #f8f9fa;
+    --gray-200: #e9ecef;
+    --gray-300: #dee2e6;
+    --gray-400: #ced4da;
+    --gray-500: #adb5bd;
+    --gray-600: #6c757d;
+    --gray-700: #495057;
+    --gray-800: #343a40;
+    --gray-900: #212529;
+    --white: #ffffff;
+    --black: #000000;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --success-color: #28a745;
+    --success-dark: #218838;
+    --info-color: #0dcaf0;
+    --light-color: #f8f9fa;
+    --dark-color: #212529;
+    --sidebar-width: 250px;
+    --header-height: 70px;
+    --border-radius: 8px;
+    --border-radius-sm: 6px;
+    --border-radius-lg: 16px;
+    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --box-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.12);
+    --transition: all 0.3s ease;
+    --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f5f7fb;
+    color: var(--gray-800);
+    line-height: 1.6;
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: var(--sidebar-width);
+    background-color: #fff;
+    box-shadow: var(--box-shadow);
+    position: fixed;
+    height: 100vh;
+    z-index: 100;
+    transition: var(--transition);
+    border-right: 1px solid var(--gray-200);
+}
+
+.logo {
+    padding: 24px 20px;
+    text-align: center;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.logo h2 {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.nav-links {
+    list-style: none;
+    padding: 20px 0;
+}
+
+.nav-links li {
+    margin-bottom: 8px;
+}
+
+.nav-links a {
+    display: flex;
+    align-items: center;
+    padding: 12px 24px;
+    color: var(--gray-700);
+    text-decoration: none;
+    transition: var(--transition);
+    border-radius: 0 30px 30px 0;
+    margin-right: 16px;
+    font-weight: 500;
+    /* Ensure text doesn't overflow */
+    white-space: nowrap; /* Prevent text from wrapping */
+    overflow: hidden;    /* Hide overflowing content */
+    text-overflow: ellipsis; /* Add ellipsis for clipped text */
+}
+
+.nav-links a i {
+    margin-right: 12px;
+    font-size: 1.1rem;
+    width: 20px;
+    text-align: center;
+    flex-shrink: 0; /* Prevent icon from shrinking */
+}
+
+.nav-links a.active, .nav-links a:hover {
+    background-color: rgba(67, 97, 238, 0.1);
+    color: var(--primary-color);
+    border-left: 3px solid var(--primary-color);
+}
+
+/* Main Content Styles */
+.main-content {
+    flex: 1;
+    margin-left: var(--sidebar-width);
+    padding: 24px;
+    transition: var(--transition);
+}
+
+/* Top Bar Styles */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    background-color: #fff;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 24px;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    background-color: var(--gray-100);
+    border-radius: 30px;
+    padding: 10px 16px;
+    width: 300px;
+    transition: var(--transition);
+    border: 1px solid transparent;
+}
+
+.search-container:focus-within {
+    border-color: var(--primary-light);
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+}
+
+.search-container i {
+    color: var(--gray-500);
+    margin-right: 10px;
+}
+
+.search-container input {
+    border: none;
+    background: transparent;
+    outline: none;
+    width: 100%;
+    font-size: 0.95rem;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+}
+
+.user-profile span {
+    margin-right: 12px;
+    font-weight: 600;
+    color: var(--gray-800);
+}
+
+.user-profile img {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--gray-200);
+    transition: var(--transition);
+}
+
+.user-profile img:hover {
+    border-color: var(--primary-color);
+}
+
+/* Section Styles */
+.content-section {
+    display: none;
+    background-color: #fff;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 24px;
+    margin-bottom: 24px;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.content-section.active {
+    display: block;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.section-header h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--gray-900);
+    letter-spacing: -0.5px;
+}
+
+/* Dashboard Styles */
+.dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+    margin-top: 24px;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 24px;
+    transition: var(--transition);
+    border: 1px solid var(--gray-200);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--box-shadow-hover);
+    border-color: var(--gray-300);
+}
+
+.card h3 {
+    color: var(--gray-700);
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.card .number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--gray-900);
+    letter-spacing: -1px;
+}
+
+.card .trend {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.trend.positive {
+    color: var(--success-color);
+}
+
+.trend.negative {
+    color: var(--danger-color);
+}
+
+.trend i {
+    margin-right: 5px;
+}
+
+/* Button Styles */
+.btn {
+    padding: 10px 18px;
+    border-radius: var(--border-radius-sm);
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.95rem;
+}
+
+.btn i {
+    margin-right: 8px;
+}
+
+.btn.primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn.primary:hover {
+    background-color: #3a52d0;
+    box-shadow: 0 4px 12px rgba(67, 97, 238, 0.2);
+}
+
+.btn.secondary {
+    background-color: var(--gray-200);
+    color: var(--gray-700);
+}
+
+.btn.secondary:hover {
+    background-color: var(--gray-300);
+}
+
+/* Filter Bar Styles */
+.filter-bar {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+    background-color: var(--gray-100);
+    padding: 16px 20px;
+    border-radius: var(--border-radius);
+    flex-wrap: wrap;
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+}
+
+.filter-group label {
+    margin-right: 10px;
+    font-weight: 600;
+    color: var(--gray-700);
+    font-size: 0.95rem;
+}
+
+.filter-group select {
+    padding: 8px 14px;
+    border: 1px solid var(--gray-300);
+    border-radius: var(--border-radius-sm);
+    background-color: white;
+    font-size: 0.95rem;
+    color: var(--gray-800);
+    transition: var(--transition);
+}
+
+.filter-group select:focus {
+    border-color: var(--primary-light);
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+    outline: none;
+}
+
+/* Table Styles */
+.table-container {
+    overflow-x: auto;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--gray-200);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    padding: 14px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+table th {
+    background-color: var(--gray-100);
+    font-weight: 600;
+    color: var(--gray-700);
+    font-size: 0.95rem;
+}
+
+table tbody tr {
+    transition: var(--transition);
+}
+
+table tbody tr:hover {
+    background-color: rgba(67, 97, 238, 0.05);
+}
+
+.status {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.status.active {
+    background-color: rgba(46, 204, 113, 0.15);
+    color: var(--success-color);
+}
+
+.status.inactive {
+    background-color: rgba(108, 117, 125, 0.15);
+    color: var(--gray-600);
+}
+
+.action-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--gray-600);
+    margin-right: 8px;
+    font-size: 1rem;
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: var(--transition);
+}
+
+.action-btn:hover {
+    color: var(--primary-color);
+    background-color: rgba(67, 97, 238, 0.1);
+}
+
+/* Profile Styles */
+.profile-container {
+    background-color: #fff;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    overflow: hidden;
+}
+
+.profile-header {
+    display: flex;
+    padding: 30px;
+    border-bottom: 1px solid var(--gray-200);
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.profile-image {
+    margin-right: 30px;
+}
+
+.profile-image img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid var(--gray-100);
+    box-shadow: var(--box-shadow);
+}
+
+.profile-info {
+    flex: 1;
+}
+
+.profile-info h2 {
+    margin-bottom: 8px;
+    color: var(--gray-900);
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.profile-info p {
+    color: var(--gray-600);
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-item .label {
+    font-size: 0.85rem;
+    color: var(--gray-600);
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.info-item span:not(.label) {
+    font-weight: 500;
+    color: var(--gray-800);
+}
+
+/* Utility Classes */
+.hidden {
+    display: none !important;
+}
+
+/* Editable Forms */
+.editable-form table input {
+    width: 90%;
+    padding: 6px 8px;
+    border: 1px solid var(--primary-light);
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.editable-row td {
+    position: relative;
+}
+
+.eval-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.btn.success {
+    background-color: var(--success-color);
+    color: white;
+}
+
+.btn.success:hover {
+    background-color: var(--success-dark);
+}
+
+/* Enhancement Styles */
+
+/* Dashboard Actions */
+.dashboard-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.dashboard-actions .btn {
+    padding: 8px 16px;
+    font-size: 14px;
+}
+
+/* Analytics Section */
+.analytics-section {
+    margin-top: 30px;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.analytics-section h2 {
+    margin-bottom: 20px;
+    color: var(--text-color);
+    font-size: 24px;
+}
+
+.analytics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.chart-container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border: 1px solid #e0e0e0;
+}
+
+.chart-container h3 {
+    margin-bottom: 15px;
+    color: var(--text-color);
+    font-size: 16px;
+    text-align: center;
+}
+
+.chart-container canvas {
+    max-height: 250px;
+}
+
+/* Enhanced Search */
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#advanced-search-btn {
+    padding: 8px 12px;
+    border: none;
+    background: var(--secondary-color);
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+#advanced-search-btn:hover {
+    background: #34495e;
+}
+
+/* Form Rows */
+.form-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+/* Checkbox Groups */
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: normal;
+    cursor: pointer;
+}
+
+.checkbox-group input[type="checkbox"] {
+    margin: 0;
+}
+
+/* Modal Enhancements */
+.modal-content {
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-body {
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+/* Multi-select styling */
+select[multiple] {
+    min-height: 100px;
+    padding: 8px;
+}
+
+select[multiple] option {
+    padding: 4px 8px;
+}
+
+select[multiple] option:checked {
+    background: var(--primary-color);
+    color: white;
+}
+
+/* Export and Report specific styles */
+#custom-date-range,
+#custom-report-period {
+    display: none;
+    margin-top: 10px;
+}
+
+/* Dashboard Cards Enhancement */
+.dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border-left: 4px solid var(--primary-color);
+}
+
+.card h3 {
+    margin: 0 0 10px 0;
+    color: var(--text-color);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.card .number {
+    font-size: 32px;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin: 10px 0;
+}
+
+.card .trend {
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.card .trend.positive {
+    color: var(--success-color);
+}
+
+.card .trend.negative {
+    color: #e74c3c;
+}
+
+.card .trend i {
+    font-size: 10px;
+}
+
+/* Advanced Search Modal Specific */
+#advanced-search-modal .modal-content {
+    max-width: 700px;
+}
+
+/* Export Modal Specific */
+#export-modal .checkbox-group {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 4px;
+    border: 1px solid #e9ecef;
+}
+
+/* Report Modal Specific */
+#report-modal select[multiple] {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+}
+
+/* Responsive Design for Analytics */
+@media (max-width: 768px) {
+    .analytics-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .dashboard-actions {
+        flex-direction: column;
+    }
+    
+    .form-row {
+        flex-direction: column;
+    }
+    
+    .search-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    #advanced-search-btn {
+        margin-top: 10px;
+    }
+}
+
+/* Loading States */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Enhanced Table Styles */
+.table-container {
+    position: relative;
+}
+
+.table-container.loading {
+    min-height: 200px;
+}
+
+/* Filter Indicators */
+.filter-active {
+    background: var(--primary-color) !important;
+    color: white !important;
+}
+
+.filter-count {
+    background: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+    margin-left: 5px;
+}
+
+/* Chart Responsive */
+.chart-container {
+    position: relative;
+    height: 300px;
+}
+
+.chart-container canvas {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Section Header with Actions */
+.section-header-with-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.section-header-with-actions h3 {
+    margin: 0;
+    color: var(--text-color);
+}
+
+.section-header-with-actions .btn {
+    padding: 8px 16px;
+    font-size: 14px;
+}
+
+/* Add Button Specific Styles */
+#add-competency-btn,
+#add-objective-btn {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#add-competency-btn:hover,
+#add-objective-btn:hover {
+    background: #2980b9;
+}
+
+#add-competency-btn i,
+#add-objective-btn i {
+    margin-right: 5px;
+}
+
+/* Modal Form Enhancements */
+.modal-body .form-group {
+    margin-bottom: 15px;
+}
+
+.modal-body .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.modal-body .form-group input,
+.modal-body .form-group select,
+.modal-body .form-group textarea {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.modal-body .form-group input:focus,
+.modal-body .form-group select:focus,
+.modal-body .form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+.modal-body .form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* Responsive Design for New Features */
+@media (max-width: 768px) {
+    .section-header-with-actions {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .section-header-with-actions .btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* Tab Styles */
+.profile-tabs, .evaluation-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--gray-200);
+    background-color: var(--gray-100);
+    padding: 0 10px;
+}
+
+.tab {
+    padding: 16px 20px;
+    cursor: pointer;
+    color: var(--gray-600);
+    font-weight: 600;
+    position: relative;
+    transition: var(--transition);
+}
+
+.tab:hover {
+    color: var(--primary-color);
+}
+
+.tab.active {
+    color: var(--primary-color);
+}
+
+.tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: var(--primary-color);
+    border-radius: 3px 3px 0 0;
+}
+
+.tab-content {
+    padding: 24px;
+}
+
+.tab-content.hidden {
+    display: none;
+}
+
+/* Status Badge Styles */
+.status-badge {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.status-badge.draft {
+    background-color: rgba(108, 117, 125, 0.15);
+    color: var(--gray-600);
+}
+
+.status-badge.submitted {
+    background-color: rgba(52, 152, 219, 0.15);
+    color: var(--info-color);
+}
+
+.status-badge.approved {
+    background-color: rgba(46, 204, 113, 0.15);
+    color: var(--success-color);
+}
+
+.status-badge.agreed {
+    background-color: rgba(243, 156, 18, 0.15);
+    color: var(--warning-color);
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow-hover);
+    width: 80%;
+    max-width: 600px;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.modal-header h2 {
+    font-size: 1.5rem;
+    color: var(--gray-900);
+    font-weight: 700;
+}
+
+.close {
+    color: var(--gray-600);
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: var(--transition);
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.close:hover {
+    color: var(--danger-color);
+    background-color: rgba(231, 76, 60, 0.1);
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--gray-700);
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid var(--gray-300);
+    border-radius: var(--border-radius-sm);
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.form-control:focus {
+    border-color: var(--primary-light);
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+    outline: none;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+    .sidebar {
+        width: 70px;
+        overflow: hidden;
+    }
+    
+    .logo h2, .nav-links a span {
+        display: none;
+    }
+    
+    .nav-links a {
+        justify-content: center;
+        padding: 15px;
+    }
+    
+    .nav-links a i {
+        margin-right: 0;
+        font-size: 1.3rem;
+    }
+    
+    .main-content {
+        margin-left: 70px;
+    }
+}
+
+@media (max-width: 768px) {
+    .profile-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .profile-image {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+    
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .dashboard-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .filter-bar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .filter-group {
+        width: 100%;
+    }
+    
+    .filter-group select {
+        width: 100%;
+    }
+}
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+<body>
+    <div class="container">
+        <nav class="sidebar">
+            <div class="logo">
+                <h2>Human Capital Insights</h2>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#" class="active"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+                <li><a href="#" id="employees-link"><i class="fas fa-users"></i> Employees</a></li>
+                <li><a href="#"><i class="fas fa-clipboard-check"></i> Evaluations</a></li>
+                <li><a href="#"><i class="fas fa-building"></i> Departments</a></li>
+                <li><a href="#"><i class="fas fa-calendar-alt"></i> Calendar</a></li>
+                <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="search-container">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search employees, evaluations..." id="search-input">
+                    <button id="advanced-search-btn" class="btn secondary"><i class="fas fa-filter"></i></button>
+                </div>
+                <div class="user-profile">
+                    <span>John Doe</span>
+                    <img src="https://via.placeholder.com/40" alt="Profile">
+                </div>
+            </header>
+
+            <section id="dashboard" class="content-section active">
+                <div class="section-header">
+                    <h1>Dashboard</h1>
+                    <div class="dashboard-actions">
+                        <button id="export-data-btn" class="btn secondary"><i class="fas fa-download"></i> Export Data</button>
+                        <button id="generate-report-btn" class="btn primary"><i class="fas fa-chart-bar"></i> Generate Report</button>
+                    </div>
+                </div>
+                
+                <div class="dashboard-cards">
+                    <div class="card">
+                        <h3>Total Employees</h3>
+                        <p class="number">248</p>
+                        <p class="trend positive"><i class="fas fa-arrow-up"></i> 5% from last month</p>
+                    </div>
+                    <div class="card">
+                        <h3>Pending Evaluations</h3>
+                        <p class="number">42</p>
+                        <p class="trend negative"><i class="fas fa-arrow-up"></i> 12% from last quarter</p>
+                    </div>
+                    <div class="card">
+                        <h3>Completed Evaluations</h3>
+                        <p class="number">156</p>
+                        <p class="trend positive"><i class="fas fa-arrow-up"></i> 8% from last quarter</p>
+                    </div>
+                    <div class="card">
+                        <h3>Average Score</h3>
+                        <p class="number">4.2</p>
+                        <p class="trend positive"><i class="fas fa-arrow-up"></i> 0.3 from last quarter</p>
+                    </div>
+                </div>
+                
+                <div class="analytics-section">
+                    <h2>Performance Analytics</h2>
+                    <div class="analytics-grid">
+                        <div class="chart-container">
+                            <h3>Evaluation Scores by Department</h3>
+                            <canvas id="departmentChart"></canvas>
+                        </div>
+                        <div class="chart-container">
+                            <h3>Performance Trends</h3>
+                            <canvas id="trendsChart"></canvas>
+                        </div>
+                        <div class="chart-container">
+                            <h3>Competency Distribution</h3>
+                            <canvas id="competencyChart"></canvas>
+                        </div>
+                        <div class="chart-container">
+                            <h3>Goal Achievement Rate</h3>
+                            <canvas id="goalsChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="employees" class="content-section">
+                <div class="section-header">
+                    <h1>Employees</h1>
+                    <button id="new-employee-btn" class="btn primary"><i class="fas fa-plus"></i> New Employee</button>
+                </div>
+                
+                <div class="filter-bar">
+                    <div class="filter-group">
+                        <label>Department:</label>
+                        <select id="department-filter">
+                            <option value="all">All Departments</option>
+                            <option value="hr">Human Resources</option>
+                            <option value="it">Information Technology</option>
+                            <option value="finance">Finance</option>
+                            <option value="marketing">Marketing</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Status:</label>
+                        <select id="status-filter">
+                            <option value="all">All Status</option>
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table id="employees-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Position</th>
+                                <th>Department</th>
+                                <th>Managerial Level</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="employee-profile" class="content-section">
+                <div class="section-header">
+                    <button id="back-to-employees" class="btn secondary"><i class="fas fa-arrow-left"></i> Back</button>
+                    <h1>Employee Profile</h1>
+                </div>
+                
+                <div class="profile-container">
+                    <div class="profile-header">
+                        <div class="profile-image">
+                            <img src="https://via.placeholder.com/150" alt="Employee Photo">
+                        </div>
+                        <div class="profile-info">
+                            <h2 id="profile-name">Jane Smith</h2>
+                            <p id="profile-position">Senior Software Engineer</p>
+                            <div class="info-grid">
+                                <div class="info-item">
+                                    <span class="label">Department:</span>
+                                    <span id="profile-department">Information Technology</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="label">Function:</span>
+                                    <span id="profile-function">Development</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="label">Hire Date:</span>
+                                    <span id="profile-hire-date">15 Mar 2020</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="label">Email:</span>
+                                    <span id="profile-email">jane.smith@company.com</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="label">Phone:</span>
+                                    <span id="profile-phone">+1 (555) 123-4567</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="label">Status:</span>
+                                    <span id="profile-status" class="status active">Active</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="profile-tabs">
+                        <div class="tab active" data-tab="evaluation-history">Evaluation History</div>
+                        <div class="tab" data-tab="personal-info">Personal Info</div>
+                        <div class="tab" data-tab="documents">Documents</div>
+                    </div>
+
+                    <div class="tab-content" id="evaluation-history">
+                        <h3>Evaluation History</h3>
+                        <div class="section-header">
+                            <button id="new-evaluation-btn" class="btn primary"><i class="fas fa-plus"></i> New Evaluation</button>
+                        </div>
+                        <table class="evaluation-table">
+                            <thead>
+                                <tr>
+                                    <th>Quarter</th>
+                                    <th>Date</th>
+                                    <th>Type</th>
+                                    <th>Managerial Level</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                </tbody>
+                        </table>
+                    </div>
+
+                    <div class="tab-content hidden" id="personal-info">
+                        <h3>Personal Information</h3>
+                        </div>
+
+                    <div class="tab-content hidden" id="documents">
+                        <h3>Documents</h3>
+                        </div>
+                </div>
+            </section>
+
+            <section id="evaluation-detail" class="content-section">
+                <div class="section-header">
+                    <button id="back-to-profile" class="btn secondary"><i class="fas fa-arrow-left"></i> Back</button>
+                    <h1>Evaluation Detail</h1>
+                </div>
+                
+                <div class="evaluation-container">
+                    <div class="evaluation-header">
+                        <div class="eval-info">
+                            <h2 id="eval-employee-name">Jane Smith</h2>
+                            <p id="eval-quarter">Q1-2025</p>
+                            <p id="eval-type">Goal Setting</p>
+                        </div>
+                        <div class="eval-status">
+                            <span id="eval-status-badge" class="status-badge approved">Manager Approved</span>
+                        </div>
+                        <div class="eval-actions">
+                            <button id="edit-evaluation-btn" class="btn primary"><i class="fas fa-edit"></i> Edit Evaluation</button>
+                            <button id="save-evaluation-btn" class="btn success hidden"><i class="fas fa-save"></i> Save Changes</button>
+                            <button id="cancel-evaluation-btn" class="btn secondary hidden"><i class="fas fa-times"></i> Cancel</button>
+                        </div>
+                    </div>
+
+                    <div class="evaluation-summary">
+                        <div class="summary-card">
+                            <h3>Competency Assessment</h3>
+                            <p class="percentage">100%</p>
+                        </div>
+                        <div class="summary-card">
+                            <h3>Objective Achievement</h3>
+                            <p class="percentage">191.67%</p>
+                        </div>
+                    </div>
+
+                    <div class="evaluation-tabs">
+                        <div class="tab active" data-tab="competency">Competency</div>
+                        <div class="tab" data-tab="objectives">Objectives</div>
+                        <div class="tab" data-tab="comments">Comments</div>
+                        <div class="tab" data-tab="pip">Performance Improvement Plan</div>
+                    </div>
+
+                    <div class="tab-content" id="competency">
+                        <div class="section-header-with-actions">
+                            <h3>Competency Assessment</h3>
+                            <button id="add-competency-btn" class="btn primary edit-mode hidden"><i class="fas fa-plus"></i> Add New Competency</button>
+                        </div>
+                        
+                        <div class="competency-section">
+                            <h4>Core Competencies</h4>
+                            <form id="core-competencies-form" class="editable-form">
+                                <table class="competency-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Competency</th>
+                                            <th>Required Level</th>
+                                            <th>Actual Level</th>
+                                            <th>Weight</th>
+                                            <th>Score</th>
+                                            <th class="edit-mode hidden">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="editable-row" data-id="comm">
+                                            <td>
+                                                <span class="view-mode">Communication</span>
+                                                <input type="text" class="edit-mode hidden" value="Communication" name="competency">
+                                            </td>
+                                            <td>
+                                                <span class="view-mode">10</span>
+                                                <input type="number" class="edit-mode hidden" value="10" min="1" max="10" name="required">
+                                            </td>
+                                            <td>
+                                                <span class="view-mode">10</span>
+                                                <input type="number" class="edit-mode hidden" value="10" min="1" max="10" name="actual">
+                                            </td>
+                                            <td>
+                                                <span class="view-mode">30%</span>
+                                                <input type="number" class="edit-mode hidden" value="30" min="0" max="100" name="weight">%
+                                            </td>
+                                            <td>
+                                                <span class="view-mode">30%</span>
+                                                <span class="edit-mode hidden score-value">30%</span>
+                                            </td>
+                                            <td class="edit-mode hidden">
+                                                <button type="button" class="action-btn delete-competency" data-id="comm"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr class="editable-row" data-id="team">
+                                            <td>
+                                                <span class="view-mode">Teamwork</span>
+                                                <input type="text" class="edit-mode hidden" value="Teamwork" name="competency">
+                                            </td>
+                                            <td>
+                                                <span class="view-mode">10</span>
+                                                <input type="number" class="edit-mode hidden" value="10" min="1" max="10" name="required">
+                                            </td>
+                                            <td>
+                                                <span class="view-mode">10</span>
+                                                <input type="number" class="edit-mode hidden" value="10" min="1" max="10" name="actual">
+                                            </td>
+                                            <td>
+                                                <span class="view-mode">20%</span>
+                                                <input type="number" class="edit-mode hidden" value="20" min="0" max="100" name="weight">%
+                                            </td>
+                                            <td>
+                                                <span class="view-mode">20%</span>
+                                                <span class="edit-mode hidden score-value">20%</span>
+                                            </td>
+                                            <td class="edit-mode hidden">
+                                                <button type="button" class="action-btn delete-competency" data-id="team"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr class="editable-row" data-id="prob">
+                                            <td>
+                                                <span class="view-mode">Problem Solving</span>
+                                                <input type="text" class="edit-mode hidden" value="Problem Solving" name="competency">
+                                            </td>
+                                            <td>
+                                                <span class="view-mode">10</span>
+                                                <input type="number" class="edit-mode hidden" value="10" min="1" max="10" name="required">
+                                            </td>
+                                            <td>
+                                                <span class="view-mode">10</span>
+                                                <input type="number" class="edit-mode hidden" value="10" min="1" max="10" name="actual">
+                                            </td>
+                                            <td>
+                                                <span class="view-mode">25%</span>
+                                                <input type="number" class="edit-mode hidden" value="25" min="0" max="100" name="weight">%
+                                            </td>
+                                            <td>
+                                                <span class="view-mode">25%</span>
+                                                <span class="edit-mode hidden score-value">25%</span>
+                                            </td>
+                                            <td class="edit-mode hidden">
+                                                <button type="button" class="action-btn delete-competency" data-id="prob"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </form>
+                        </div>
+
+                        <div class="competency-section">
+                            <h4>Leadership Competencies</h4>
+                            <form id="leadership-competencies-form" class="editable-form">
+                                <table class="competency-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Competency</th>
+                                            <th>Required Level</th>
+                                            <th>Actual Level</th>
+                                            <th>Weight</th>
+                                            <th>Score</th>
+                                            <th class="edit-mode hidden">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="editable-row" data-id="strat">
+                                            <td>
+                                                <span class="view-mode">Strategic Thinking</span>
+                                                <input type="text" class="edit-mode hidden" value="Strategic Thinking" name="competency">
+                                            </td>
+                                            <td>
+                                                <span class="view-mode">10</span>
+                                                <input type="number" class="edit-mode hidden" value="10" min="1" max="10" name="required">
+                                            </td>
+                                            <td>
+                                                <span class="view-mode">10</span>
+                                                <input type="number" class="edit-mode hidden" value="10" min="1" max="10" name="actual">
+                                            </td>
+                                            <td>
+                                                <span class="view-mode">15%</span>
+                                                <input type="number" class="edit-mode hidden" value="15" min="0" max="100" name="weight">%
+                                            </td>
+                                            <td>
+                                                <span class="view-mode">15%</span>
+                                                <span class="edit-mode hidden score-value">15%</span>
+                                            </td>
+                                            <td class="edit-mode hidden">
+                                                <button type="button" class="action-btn delete-competency" data-id="strat"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr class="editable-row" data-id="dec">
+                                            <td>
+                                                <span class="view-mode">Decision Making</span>
+                                                <input type="text" class="edit-mode hidden" value="Decision Making" name="competency">
+                                            </td>
+                                            <td>
+                                                <span class="view-mode">10</span>
+                                                <input type="number" class="edit-mode hidden" value="10" min="1" max="10" name="required">
+                                            </td>
+                                            <td>
+                                                <span class="view-mode">10</span>
+                                                <input type="number" class="edit-mode hidden" value="10" min="1" max="10" name="actual">
+                                            </td>
+                                            <td>
+                                                <span class="view-mode">10%</span>
+                                                <input type="number" class="edit-mode hidden" value="10" min="0" max="100" name="weight">%
+                                            </td>
+                                            <td>
+                                                <span class="view-mode">10%</span>
+                                                <span class="edit-mode hidden score-value">10%</span>
+                                            </td>
+                                            <td class="edit-mode hidden">
+                                                <button type="button" class="action-btn delete-competency" data-id="dec"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </form>
+                        </div>
+
+                        <div class="competency-section">
+                            <h4>Functional Competencies</h4>
+                            <form id="functional-competencies-form" class="editable-form">
+                                <table class="competency-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Competency</th>
+                                            <th>Required Level</th>
+                                            <th>Actual Level</th>
+                                            <th>Weight</th>
+                                            <th>Score</th>
+                                            <th class="edit-mode hidden">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        </tbody>
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="tab-content hidden" id="objectives">
+                        <div class="section-header-with-actions">
+                            <h3>Objectives</h3>
+                            <button id="add-objective-btn" class="btn primary edit-mode hidden"><i class="fas fa-plus"></i> Add New Objective</button>
+                        </div>
+                        <form id="objectives-form" class="editable-form">
+                            <table class="objectives-table">
+                                <thead>
+                                    <tr>
+                                        <th>Objective</th>
+                                        <th>Target</th>
+                                        <th>Actual</th>
+                                        <th>Achievement</th>
+                                        <th>Weight</th>
+                                        <th>Score</th>
+                                        <th class="edit-mode hidden">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="editable-row" data-id="proj">
+                                        <td>
+                                            <span class="view-mode">Complete Project X</span>
+                                            <input type="text" class="edit-mode hidden" value="Complete Project X" name="objective">
+                                        </td>
+                                        <td>
+                                            <span class="view-mode">100%</span>
+                                            <input type="number" class="edit-mode hidden" value="100" min="0" name="target">
+                                        </td>
+                                        <td>
+                                            <span class="view-mode">100%</span>
+                                            <input type="number" class="edit-mode hidden" value="100" min="0" name="actual">
+                                        </td>
+                                        <td>
+                                            <span class="view-mode">100%</span>
+                                            <span class="edit-mode hidden achievement-value">100%</span>
+                                        </td>
+                                        <td>
+                                            <span class="view-mode">40%</span>
+                                            <input type="number" class="edit-mode hidden" value="40" min="0" max="100" name="weight">%
+                                        </td>
+                                        <td>
+                                            <span class="view-mode">40%</span>
+                                            <span class="edit-mode hidden score-value">40%</span>
+                                        </td>
+                                        <td class="edit-mode hidden">
+                                            <button type="button" class="action-btn delete-objective" data-id="proj"><i class="fas fa-trash"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr class="editable-row" data-id="bug">
+                                        <td>
+                                            <span class="view-mode">Reduce Bug Count</span>
+                                            <input type="text" class="edit-mode hidden" value="Reduce Bug Count" name="objective">
+                                        </td>
+                                        <td>
+                                            <span class="view-mode">50</span>
+                                            <input type="number" class="edit-mode hidden" value="50" min="0" name="target">
+                                        </td>
+                                        <td>
+                                            <span class="view-mode">25</span>
+                                            <input type="number" class="edit-mode hidden" value="25" min="0" name="actual">
+                                        </td>
+                                        <td>
+                                            <span class="view-mode">200%</span>
+                                            <span class="edit-mode hidden achievement-value">200%</span>
+                                        </td>
+                                        <td>
+                                            <span class="view-mode">30%</span>
+                                            <input type="number" class="edit-mode hidden" value="30" min="0" max="100" name="weight">%
+                                        </td>
+                                        <td>
+                                            <span class="view-mode">60%</span>
+                                            <span class="edit-mode hidden score-value">60%</span>
+                                        </td>
+                                        <td class="edit-mode hidden">
+                                            <button type="button" class="action-btn delete-objective" data-id="bug"><i class="fas fa-trash"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr class="editable-row" data-id="cust">
+                                        <td>
+                                            <span class="view-mode">Customer Satisfaction</span>
+                                            <input type="text" class="edit-mode hidden" value="Customer Satisfaction" name="objective">
+                                        </td>
+                                        <td>
+                                            <span class="view-mode">85%</span>
+                                            <input type="number" class="edit-mode hidden" value="85" min="0" name="target">
+                                        </td>
+                                        <td>
+                                            <span class="view-mode">95%</span>
+                                            <input type="number" class="edit-mode hidden" value="95" min="0" name="actual">
+                                        </td>
+                                        <td>
+                                            <span class="view-mode">111.76%</span>
+                                            <span class="edit-mode hidden achievement-value">111.76%</span>
+                                        </td>
+                                        <td>
+                                            <span class="view-mode">30%</span>
+                                            <input type="number" class="edit-mode hidden" value="30" min="0" max="100" name="weight">%
+                                        </td>
+                                        <td>
+                                            <span class="view-mode">33.53%</span>
+                                            <span class="edit-mode hidden score-value">33.53%</span>
+                                        </td>
+                                        <td class="edit-mode hidden">
+                                            <button type="button" class="action-btn delete-objective" data-id="cust"><i class="fas fa-trash"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="5"></td>
+                                        <td><strong>Total:</strong></td>
+                                        <td><strong id="total-score">133.53%</strong></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </form>
+                    </div>
+
+                    <div class="tab-content hidden" id="comments">
+                        <div class="section-header-with-actions">
+                            <h3>Manager Comments</h3>
+                            <button id="summarize-comments-btn" class="btn primary"><i class="fas fa-magic"></i> Summarize Comments ✨</button>
+                        </div>
+                        <div class="comment-box" id="manager-comments-content">
+                            <p>Jane has demonstrated exceptional performance this quarter. Her technical skills and leadership abilities have significantly contributed to the success of Project X. She consistently exceeds expectations and is a valuable asset to the team.</p>
+                        </div>
+                        <div class="comment-box mt-4 hidden" id="summarized-comments-content">
+                            <h4>Summarized Comments:</h4>
+                            <p id="summary-text">Loading summary...</p>
+                        </div>
+                    </div>
+
+                    <div class="tab-content hidden" id="pip">
+                        <div class="section-header-with-actions">
+                            <h3>Performance Improvement Plan</h3>
+                            <button id="generate-pip-btn" class="btn primary"><i class="fas fa-robot"></i> Generate PIP ✨</button>
+                        </div>
+                        <div class="pip-content" id="pip-output">
+                            <p>Click "Generate PIP" to create a draft Performance Improvement Plan based on the employee's evaluation data.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="new-employee-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add New Employee</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="new-employee-form">
+                    <div class="form-group">
+                        <label for="emp-name">Full Name</label>
+                        <input type="text" id="emp-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="emp-position">Position</label>
+                        <input type="text" id="emp-position" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="emp-department">Department</label>
+                        <select id="emp-department" required>
+                            <option value="">Select Department</option>
+                            <option value="hr">Human Resources</option>
+                            <option value="it">Information Technology</option>
+                            <option value="finance">Finance</option>
+                            <option value="marketing">Marketing</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="emp-level">Managerial Level</label>
+                        <select id="emp-level" required>
+                            <option value="">Select Level</option>
+                            <option value="individual">Individual Contributor</option>
+                            <option value="supervisor">Supervisor</option>
+                            <option value="manager">Manager</option>
+                            <option value="director">Director</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="emp-email">Email</label>
+                        <input type="email" id="emp-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="emp-phone">Phone</label>
+                        <input type="tel" id="emp-phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="emp-hire-date">Hire Date</label>
+                        <input type="date" id="emp-hire-date" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn secondary" id="cancel-employee">Cancel</button>
+                        <button type="submit" class="btn primary">Save Employee</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="new-evaluation-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add New Evaluation</h2>
+                <span class="close" id="close-evaluation-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="new-evaluation-form">
+                    <div class="form-group">
+                        <label for="eval-type">Evaluation Type</label>
+                        <select id="eval-type" required>
+                            <option value="">Select Evaluation Type</option>
+                            <option value="quarterly">Quarterly</option>
+                            <option value="annual">Annual</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="eval-quarter">Quarter/Year</label>
+                        <input type="text" id="eval-quarter" required placeholder="e.g. Q1-2025 or 2025">
+                    </div>
+                    <div class="form-group">
+                        <label for="eval-date">Evaluation Date</label>
+                        <input type="date" id="eval-date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="eval-managerial-level">Managerial Level</label>
+                        <select id="eval-managerial-level" required>
+                            <option value="">Select Managerial Level</option>
+                            <option value="supervisory">Supervisory</option>
+                            <option value="middle-management">Middle Management</option>
+                            <option value="individual-contributor">Individual Contributor</option>
+                        </select>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn secondary" id="cancel-evaluation">Cancel</button>
+                        <button type="submit" class="btn primary">Create Evaluation</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="advanced-search-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Advanced Search & Filters</h2>
+                <span class="close" id="close-advanced-search">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="advanced-search-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="search-name">Employee Name</label>
+                            <input type="text" id="search-name" placeholder="Enter name...">
+                        </div>
+                        <div class="form-group">
+                            <label for="search-department">Department</label>
+                            <select id="search-department">
+                                <option value="">All Departments</option>
+                                <option value="hr">Human Resources</option>
+                                <option value="it">Information Technology</option>
+                                <option value="finance">Finance</option>
+                                <option value="marketing">Marketing</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="search-position">Position</label>
+                            <input type="text" id="search-position" placeholder="Enter position...">
+                        </div>
+                        <div class="form-group">
+                            <label for="search-level">Managerial Level</label>
+                            <select id="search-level">
+                                <option value="">All Levels</option>
+                                <option value="individual-contributor">Individual Contributor</option>
+                                <option value="supervisory">Supervisory</option>
+                                <option value="middle-management">Middle Management</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="search-score-min">Min Score</label>
+                            <input type="number" id="search-score-min" min="1" max="5" step="0.1">
+                        </div>
+                        <div class="form-group">
+                            <label for="search-score-max">Max Score</label>
+                            <input type="number" id="search-score-max" min="1" max="5" step="0.1">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="search-date-from">Evaluation Date From</label>
+                            <input type="date" id="search-date-from">
+                        </div>
+                        <div class="form-group">
+                            <label for="search-date-to">Evaluation Date To</label>
+                            <input type="date" id="search-date-to">
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn secondary" id="clear-filters">Clear Filters</button>
+                        <button type="submit" class="btn primary">Apply Filters</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="export-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Export Data</h2>
+                <span class="close" id="close-export-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="export-form">
+                    <div class="form-group">
+                        <label>Data to Export:</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" id="export-employees" checked> Employee Data</label>
+                            <label><input type="checkbox" id="export-evaluations" checked> Evaluation Data</label>
+                            <label><input type="checkbox" id="export-competencies"> Competency Scores</label>
+                            <label><input type="checkbox" id="export-objectives"> Objectives Data</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="export-format">Export Format</label>
+                        <select id="export-format">
+                            <option value="csv">CSV</option>
+                            <option value="excel">Excel</option>
+                            <option value="pdf">PDF Report</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="export-date-range">Date Range</label>
+                        <select id="export-date-range">
+                            <option value="all">All Time</option>
+                            <option value="current-quarter">Current Quarter</option>
+                            <option value="last-quarter">Last Quarter</option>
+                            <option value="current-year">Current Year</option>
+                            <option value="custom">Custom Range</option>
+                        </select>
+                    </div>
+                    <div id="custom-date-range" class="form-row" style="display: none;">
+                        <div class="form-group">
+                            <label for="export-from-date">From Date</label>
+                            <input type="date" id="export-from-date">
+                        </div>
+                        <div class="form-group">
+                            <label for="export-to-date">To Date</label>
+                            <input type="date" id="export-to-date">
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn secondary" id="cancel-export">Cancel</button>
+                        <button type="submit" class="btn primary">Export Data</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="report-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Generate Performance Report</h2>
+                <span class="close" id="close-report-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="report-form">
+                    <div class="form-group">
+                        <label for="report-type">Report Type</label>
+                        <select id="report-type">
+                            <option value="department">Department Performance</option>
+                            <option value="individual">Individual Performance</option>
+                            <option value="competency">Competency Analysis</option>
+                            <option value="trends">Performance Trends</option>
+                            <option value="comprehensive">Comprehensive Report</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="report-period">Time Period</label>
+                        <select id="report-period">
+                            <option value="current-quarter">Current Quarter</option>
+                            <option value="last-quarter">Last Quarter</option>
+                            <option value="current-year">Current Year</option>
+                            <option value="last-year">Last Year</option>
+                            <option value="custom">Custom Period</option>
+                        </select>
+                    </div>
+                    <div id="custom-report-period" class="form-row" style="display: none;">
+                        <div class="form-group">
+                            <label for="report-from-date">From Date</label>
+                            <input type="date" id="report-from-date">
+                        </div>
+                        <div class="form-group">
+                            <label for="report-to-date">To Date</label>
+                            <input type="date" id="report-to-date">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="report-departments">Departments (Optional)</label>
+                        <select id="report-departments" multiple>
+                            <option value="hr">Human Resources</option>
+                            <option value="it">Information Technology</option>
+                            <option value="finance">Finance</option>
+                            <option value="marketing">Marketing</option>
+                        </select>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn secondary" id="cancel-report">Cancel</button>
+                        <button type="submit" class="btn primary">Generate Report</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="new-competency-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add New Competency</h2>
+                <span class="close" id="close-competency-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="new-competency-form">
+                    <div class="form-group">
+                        <label for="competency-type">Competency Type</label>
+                        <select id="competency-type" required>
+                            <option value="">Select Type</option>
+                            <option value="core">Core Competencies</option>
+                            <option value="leadership">Leadership Competencies</option>
+                            <option value="functional">Functional Competencies</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="competency-name">Competency Name</label>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <input type="text" id="competency-name" required placeholder="Enter competency name" style="flex-grow: 1;">
+                            <button type="button" class="btn primary" id="suggest-competency-description-btn"><i class="fas fa-lightbulb"></i> Suggest Description ✨</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="competency-description">Description (Optional)</label>
+                        <textarea id="competency-description" rows="3" placeholder="Generated description will appear here..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="required-level">Required Level (1-10)</label>
+                        <input type="number" id="required-level" min="1" max="10" value="5" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="actual-level">Actual Level (1-10)</label>
+                        <input type="number" id="actual-level" min="1" max="10" value="5" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="competency-weight">Weight (%)</label>
+                        <input type="number" id="competency-weight" min="0" max="100" value="10" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn secondary" id="cancel-competency-btn">Cancel</button>
+                <button type="submit" class="btn primary" id="save-competency-btn">Add Competency</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="new-objective-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add New Objective</h2>
+                <span class="close" id="close-objective-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="new-objective-form">
+                    <div class="form-group">
+                        <label for="objective-name">Objective Name</label>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <input type="text" id="objective-name" required placeholder="Enter objective name" style="flex-grow: 1;">
+                            <button type="button" class="btn primary" id="suggest-objective-description-btn"><i class="fas fa-lightbulb"></i> Suggest Description ✨</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="target-value">Target Value</label>
+                        <input type="number" id="target-value" min="0" step="0.01" required placeholder="Enter target value">
+                    </div>
+                    <div class="form-group">
+                        <label for="actual-value">Actual Value</label>
+                        <input type="number" id="actual-value" min="0" step="0.01" required placeholder="Enter actual value">
+                    </div>
+                    <div class="form-group">
+                        <label for="objective-weight">Weight (%)</label>
+                        <input type="number" id="objective-weight" min="0" max="100" value="10" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="objective-description">Description (Optional)</label>
+                        <textarea id="objective-description" rows="3" placeholder="Generated description will appear here..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn secondary" id="cancel-objective-btn">Cancel</button>
+                <button type="submit" class="btn primary" id="save-objective-btn">Add Objective</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="confirmation-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Confirm Deletion</h2>
+                <span class="close" id="close-confirmation-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this item? This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer form-actions">
+                <button type="button" class="btn secondary" id="cancel-delete-btn">Cancel</button>
+                <button type="button" class="btn danger" id="confirm-delete-btn">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="chart.min.js"></script>
+    <script >
+        // Sample data for employees
+        const employeesData = [
+            {
+                id: 1,
+                name: 'Jane Smith',
+                position: 'Senior Software Engineer',
+                department: 'Information Technology',
+                level: 'Individual Contributor',
+                status: 'active',
+                email: 'jane.smith@company.com',
+                phone: '+1 (555) 123-4567',
+                hireDate: '2020-03-15',
+                function: 'Development'
+            },
+            {
+                id: 2,
+                name: 'John Doe',
+                position: 'Marketing Manager',
+                department: 'Marketing',
+                level: 'Manager',
+                status: 'active',
+                email: 'john.doe@company.com',
+                phone: '+1 (555) 987-6543',
+                hireDate: '2018-06-10',
+                function: 'Brand Management'
+            },
+            {
+                id: 3,
+                name: 'Sarah Johnson',
+                position: 'HR Specialist',
+                department: 'Human Resources',
+                level: 'Individual Contributor',
+                status: 'active',
+                email: 'sarah.johnson@company.com',
+                phone: '+1 (555) 456-7890',
+                hireDate: '2019-11-05',
+                function: 'Recruitment'
+            },
+            {
+                id: 4,
+                name: 'Michael Brown',
+                position: 'Finance Director',
+                department: 'Finance',
+                level: 'Director',
+                status: 'active',
+                email: 'michael.brown@company.com',
+                phone: '+1 (555) 234-5678',
+                hireDate: '2015-09-22',
+                function: 'Financial Planning'
+            },
+            {
+                id: 5,
+                name: 'Emily Davis',
+                position: 'Product Manager',
+                department: 'Information Technology',
+                level: 'Manager',
+                status: 'inactive',
+                email: 'emily.davis@company.com',
+                phone: '+1 (555) 876-5432',
+                hireDate: '2017-04-18',
+                function: 'Product Development'
+            }
+        ];
+
+        // Sample data for evaluations
+        const evaluationsData = [
+            {
+                id: 1,
+                employeeId: 1,
+                quarter: 'Q1-2025',
+                date: '2025-03-15',
+                type: 'Goal Setting',
+                status: 'approved',
+                managerialLevel: 'individual-contributor'
+            },
+            {
+                id: 2,
+                employeeId: 1,
+                quarter: 'Q2-2025',
+                date: '2025-06-20',
+                type: 'Mid-Year Review',
+                status: 'approved',
+                managerialLevel: 'individual-contributor'
+            },
+            {
+                id: 3,
+                employeeId: 1,
+                quarter: 'Q4-2024',
+                date: '2024-12-10',
+                type: 'End-Year Review',
+                status: 'agreed',
+                managerialLevel: 'individual-contributor'
+            },
+            {
+                id: 4,
+                employeeId: 2,
+                quarter: 'Q1-2025',
+                date: '2025-03-12',
+                type: 'Goal Setting',
+                status: 'submitted',
+                managerialLevel: 'middle-management'
+            },
+            {
+                id: 5,
+                employeeId: 3,
+                quarter: 'Q1-2025',
+                date: '2025-03-10',
+                type: 'Goal Setting',
+                status: 'draft',
+                managerialLevel: 'supervisory'
+            }
+        ];
+
+        // DOM Elements
+        const sections = document.querySelectorAll('.content-section');
+        const navLinks = document.querySelectorAll('.nav-links a');
+        const employeesLink = document.getElementById('employees-link');
+        const dashboardSection = document.getElementById('dashboard');
+        const employeesSection = document.getElementById('employees');
+        const employeeDetailSection = document.getElementById('employee-detail');
+        const evaluationDetailSection = document.getElementById('evaluation-detail');
+        const employeesTable = document.getElementById('employees-table');
+        const newEmployeeBtn = document.getElementById('new-employee-btn');
+        const newEmployeeModal = document.getElementById('new-employee-modal');
+        const closeEmployeeModal = document.getElementById('close-employee-modal');
+        const cancelEmployeeBtn = document.getElementById('cancel-employee');
+        const newEmployeeForm = document.getElementById('new-employee-form');
+        const searchInput = document.getElementById('search-input');
+        const departmentFilter = document.getElementById('department-filter');
+        const statusFilter = document.getElementById('status-filter');
+        const backToEmployeesBtn = document.getElementById('back-to-employees');
+        const backToProfileBtn = document.getElementById('back-to-profile'); // Corrected reference
+        const profileTabs = document.querySelectorAll('.profile-tabs .tab');
+        const evaluationTabs = document.querySelectorAll('.evaluation-tabs .tab');
+        const newEvaluationBtn = document.getElementById('new-evaluation-btn');
+        const newEvaluationModal = document.getElementById('new-evaluation-modal');
+        const closeEvaluationModal = document.getElementById('close-evaluation-modal');
+        const cancelEvaluationBtn = document.getElementById('cancel-evaluation');
+        const newEvaluationForm = document.getElementById('new-evaluation-form');
+        const editEvaluationBtn = document.getElementById('edit-evaluation-btn');
+        const saveEvaluationBtn = document.getElementById('save-evaluation-btn');
+        const cancelEvaluationEditBtn = document.getElementById('cancel-evaluation-btn');
+        const editableForms = document.querySelectorAll('.editable-form');
+        const editableRows = document.querySelectorAll('.editable-row');
+
+        // New Competency and Objective Elements
+        const addCompetencyBtn = document.getElementById('add-competency-btn');
+        const newCompetencyModal = document.getElementById('new-competency-modal');
+        const closeCompetencyModal = document.getElementById('close-competency-modal');
+        const cancelCompetencyBtn = document.getElementById('cancel-competency-btn');
+        const saveCompetencyBtn = document.getElementById('save-competency-btn');
+        const newCompetencyForm = document.getElementById('new-competency-form');
+        const suggestCompetencyDescriptionBtn = document.getElementById('suggest-competency-description-btn');
+        const competencyNameInput = document.getElementById('competency-name');
+        const competencyDescriptionTextarea = document.getElementById('competency-description');
+
+
+        const addObjectiveBtn = document.getElementById('add-objective-btn');
+        const newObjectiveModal = document.getElementById('new-objective-modal');
+        const closeObjectiveModal = document.getElementById('close-objective-modal');
+        const cancelObjectiveBtn = document.getElementById('cancel-objective-btn');
+        const saveObjectiveBtn = document.getElementById('save-objective-btn');
+        const newObjectiveForm = document.getElementById('new-objective-form');
+        const suggestObjectiveDescriptionBtn = document.getElementById('suggest-objective-description-btn');
+        const objectiveNameInput = document.getElementById('objective-name');
+        const objectiveDescriptionTextarea = document.getElementById('objective-description');
+
+
+        // New Enhancement Elements
+        const advancedSearchBtn = document.getElementById('advanced-search-btn');
+        const advancedSearchModal = document.getElementById('advanced-search-modal');
+        const closeAdvancedSearch = document.getElementById('close-advanced-search');
+        const advancedSearchForm = document.getElementById('advanced-search-form');
+        const clearFiltersBtn = document.getElementById('clear-filters');
+        const exportDataBtn = document.getElementById('export-data-btn');
+        const exportModal = document.getElementById('export-modal');
+        const closeExportModal = document.getElementById('close-export-modal');
+        const exportForm = document.getElementById('export-form');
+        const cancelExportBtn = document.getElementById('cancel-export');
+        const generateReportBtn = document.getElementById('generate-report-btn');
+        const reportModal = document.getElementById('report-modal');
+        const closeReportModal = document.getElementById('close-report-modal');
+        const reportForm = document.getElementById('report-form');
+        const cancelReportBtn = document.getElementById('cancel-report');
+        const exportDateRange = document.getElementById('export-date-range');
+        const customDateRange = document.getElementById('custom-date-range');
+        const reportPeriod = document.getElementById('report-period');
+        const customReportPeriod = document.getElementById('custom-report-period');
+
+        // Confirmation Modal Elements
+        const confirmationModal = document.getElementById('confirmation-modal');
+        const closeConfirmationModal = document.getElementById('close-confirmation-modal');
+        const cancelDeleteBtn = document.getElementById('cancel-delete-btn');
+        const confirmDeleteBtn = document.getElementById('confirm-delete-btn');
+
+        // Gemini API elements
+        const summarizeCommentsBtn = document.getElementById('summarize-comments-btn');
+        const managerCommentsContent = document.getElementById('manager-comments-content');
+        const summarizedCommentsContent = document.getElementById('summarized-comments-content');
+        const summaryText = document.getElementById('summary-text');
+
+        // New PIP elements
+        const generatePipBtn = document.getElementById('generate-pip-btn');
+        const pipOutput = document.getElementById('pip-output');
+
+
+        // Current state
+        let currentEmployeeId = null;
+        let currentEvaluationId = null;
+        let itemToDelete = null; // To store the element to be deleted
+
+        // --- Gemini API Integration Functions ---
+
+        async function callGeminiAPI(prompt) {
+            try {
+                // Add loading class to the button that triggered the call
+                if (event.target && event.target.tagName === 'BUTTON') {
+                    event.target.classList.add('loading');
+                }
+
+                let chatHistory = [];
+                chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                const payload = { contents: chatHistory };
+                const apiKey = ""; // Leave this as-is; Canvas will provide the key at runtime
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+
+                // Remove loading class
+                if (event.target && event.target.tagName === 'BUTTON') {
+                    event.target.classList.remove('loading');
+                }
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    return result.candidates[0].content.parts[0].text;
+                } else {
+                    console.error('Gemini API response structure unexpected:', result);
+                    showMessageBox('API Error', 'Failed to get a valid response from the Gemini API.');
+                    return null;
+                }
+            } catch (error) {
+                console.error('Error calling Gemini API:', error);
+                // Remove loading class on error
+                if (event.target && event.target.tagName === 'BUTTON') {
+                    event.target.classList.remove('loading');
+                }
+                showMessageBox('API Error', 'An error occurred while communicating with the Gemini API. Please try again.');
+                return null;
+            }
+        }
+
+        async function summarizeManagerComments() {
+            const commentsElement = managerCommentsContent.querySelector('p');
+            if (!commentsElement) {
+                showMessageBox('Error', 'No manager comments found to summarize.');
+                return;
+            }
+            const comments = commentsElement.textContent;
+            if (!comments.trim()) {
+                showMessageBox('Info', 'Manager comments are empty. Nothing to summarize.');
+                return;
+            }
+
+            summaryText.textContent = 'Generating summary...';
+            summarizedCommentsContent.classList.remove('hidden');
+
+            const prompt = `Summarize the following performance review comments concisely: ${comments}`;
+            const summary = await callGeminiAPI(prompt);
+
+            if (summary) {
+                summaryText.textContent = summary;
+            } else {
+                summaryText.textContent = 'Could not generate summary.';
+            }
+        }
+
+        async function suggestCompetencyDescription() {
+            const competencyName = competencyNameInput.value.trim();
+            if (!competencyName) {
+                showMessageBox('Input Required', 'Please enter a competency name first.');
+                return;
+            }
+
+            competencyDescriptionTextarea.value = 'Generating description...';
+
+            const prompt = `Generate a brief, professional description for a performance competency named "${competencyName}".`;
+            const description = await callGeminiAPI(prompt);
+
+            if (description) {
+                competencyDescriptionTextarea.value = description;
+            } else {
+                competencyDescriptionTextarea.value = 'Could not generate description.';
+            }
+        }
+
+        async function suggestObjectiveDescription() {
+            const objectiveName = objectiveNameInput.value.trim();
+            if (!objectiveName) {
+                showMessageBox('Input Required', 'Please enter an objective name first.');
+                return;
+            }
+
+            objectiveDescriptionTextarea.value = 'Generating description...';
+
+            const prompt = `Generate a brief, professional description for a performance objective named "${objectiveName}".`;
+            const description = await callGeminiAPI(prompt);
+
+            if (description) {
+                objectiveDescriptionTextarea.value = description;
+            } else {
+                objectiveDescriptionTextarea.value = 'Could not generate description.';
+            }
+        }
+
+        async function generatePerformanceImprovementPlan() {
+            const employeeName = document.getElementById('eval-employee-name').textContent;
+            const managerComments = managerCommentsContent.querySelector('p').textContent.trim();
+
+            let competencyData = [];
+            document.querySelectorAll('#competency .competency-table tbody tr').forEach(row => {
+                const name = row.querySelector('input[name="competency"]')?.value || row.querySelector('.view-mode')?.textContent;
+                const required = row.querySelector('input[name="required"]')?.value || row.querySelector('.view-mode:nth-child(2)')?.textContent;
+                const actual = row.querySelector('input[name="actual"]')?.value || row.querySelector('.view-mode:nth-child(3)')?.textContent;
+                const score = row.querySelector('.score-value')?.textContent;
+                if (name) {
+                    competencyData.push(`- ${name}: Required ${required}, Actual ${actual}, Score ${score}`);
+                }
+            });
+
+            let objectiveData = [];
+            document.querySelectorAll('#objectives .objectives-table tbody tr').forEach(row => {
+                const name = row.querySelector('input[name="objective"]')?.value || row.querySelector('.view-mode')?.textContent;
+                const target = row.querySelector('input[name="target"]')?.value || row.querySelector('.view-mode:nth-child(2)')?.textContent;
+                const actual = row.querySelector('input[name="actual"]')?.value || row.querySelector('.view-mode:nth-child(3)')?.textContent;
+                const achievement = row.querySelector('.achievement-value')?.textContent;
+                const score = row.querySelector('.score-value')?.textContent;
+                if (name) {
+                    objectiveData.push(`- ${name}: Target ${target}, Actual ${actual}, Achievement ${achievement}, Score ${score}`);
+                }
+            });
+
+            let prompt = `Generate a comprehensive Performance Improvement Plan (PIP) for ${employeeName} based on the following evaluation details. Focus on areas for improvement and suggest actionable steps with clear timelines.
+
+Manager Comments:
+${managerComments || 'No specific comments provided.'}
+
+Competency Assessment:
+${competencyData.join('\n') || 'No specific competency data.'}
+
+Objective Achievement:
+${objectiveData.join('\n') || 'No specific objective data.'}
+
+The PIP should include:
+1.  **Areas for Improvement**: Specific competencies or objectives where performance needs to be enhanced.
+2.  **Actionable Steps**: Concrete actions the employee needs to take.
+3.  **Resources/Support**: Any training, mentoring, or resources provided by the company.
+4.  **Timeline**: A realistic timeframe for improvement.
+5.  **Metrics for Success**: How improvement will be measured.
+6.  **Follow-up Plan**: Schedule for check-ins.
+`;
+
+            pipOutput.innerHTML = '<p>Generating Performance Improvement Plan...</p>';
+
+            const pipContent = await callGeminiAPI(prompt);
+
+            if (pipContent) {
+                // Convert markdown-like response to HTML for better display
+                const formattedPip = pipContent
+                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Bold text
+                    .replace(/\n\n/g, '</p><p>') // Paragraphs
+                    .replace(/\n/g, '<br>'); // Line breaks
+                pipOutput.innerHTML = `<div class="prose">${formattedPip}</div>`;
+            } else {
+                pipOutput.innerHTML = '<p>Could not generate Performance Improvement Plan.</p>';
+            }
+        }
+
+
+        // Enhancement Functions
+
+        // Advanced Search Functions
+        function handleAdvancedSearch(e) {
+            e.preventDefault();
+            
+            const filters = {
+                name: document.getElementById('search-name').value.toLowerCase(),
+                department: document.getElementById('search-department').value,
+                position: document.getElementById('search-position').value.toLowerCase(),
+                level: document.getElementById('search-level').value,
+                scoreMin: parseFloat(document.getElementById('search-score-min').value) || 0,
+                scoreMax: parseFloat(document.getElementById('search-score-max').value) || 5,
+                dateFrom: document.getElementById('search-date-from').value,
+                dateTo: document.getElementById('search-date-to').value
+            };
+            
+            applyAdvancedFilters(filters);
+            advancedSearchModal.style.display = 'none';
+        }
+
+        function applyAdvancedFilters(filters) {
+            const filteredEmployees = employeesData.filter(employee => {
+                // Name filter
+                if (filters.name && !employee.name.toLowerCase().includes(filters.name)) {
+                    return false;
+                }
+                
+                // Department filter
+                if (filters.department && employee.department.toLowerCase() !== filters.department) {
+                    return false;
+                }
+                
+                // Position filter
+                if (filters.position && !employee.position.toLowerCase().includes(filters.position)) {
+                    return false;
+                }
+                
+                // Level filter
+                if (filters.level && employee.level.toLowerCase().replace(' ', '-') !== filters.level) {
+                    return false;
+                }
+                
+                // Score and date filters would require evaluation data
+                const employeeEvaluations = evaluationsData.filter(eval => eval.employeeId === employee.id);
+                
+                if (employeeEvaluations.length > 0) {
+                    const latestEval = employeeEvaluations[employeeEvaluations.length - 1];
+                    
+                    // Score filter - Note: overallScore is not present in sample data, so this will always be false unless added.
+                    // For demonstration, let's assume a dummy overallScore for filtering purposes.
+                    // if (latestEval.overallScore < filters.scoreMin || latestEval.overallScore > filters.scoreMax) {
+                    //     return false;
+                    // }
+                    
+                    // Date filter
+                    if (filters.dateFrom && new Date(latestEval.date) < new Date(filters.dateFrom)) {
+                        return false;
+                    }
+                    if (filters.dateTo && new Date(latestEval.date) > new Date(filters.dateTo)) {
+                        return false;
+                    }
+                }
+                
+                return true;
+            });
+            
+            populateEmployeesTable(filteredEmployees);
+        }
+
+        function clearAdvancedFilters() {
+            document.getElementById('advanced-search-form').reset();
+            populateEmployeesTable(employeesData);
+        }
+
+        // Export Functions
+        function handleDataExport(e) {
+            e.preventDefault();
+            
+            const exportOptions = {
+                employees: document.getElementById('export-employees').checked,
+                evaluations: document.getElementById('export-evaluations').checked,
+                competencies: document.getElementById('export-competencies').checked,
+                objectives: document.getElementById('export-objectives').checked,
+                format: document.getElementById('export-format').value,
+                dateRange: document.getElementById('export-date-range').value,
+                fromDate: document.getElementById('export-from-date').value,
+                toDate: document.getElementById('export-to-date').value
+            };
+            
+            exportData(exportOptions);
+            exportModal.style.display = 'none';
+        }
+
+        function exportData(options) {
+            let dataToExport = {};
+            
+            if (options.employees) {
+                dataToExport.employees = employeesData;
+            }
+            
+            if (options.evaluations) {
+                let evaluations = evaluationsData;
+                
+                // Apply date filtering
+                if (options.dateRange === 'custom' && options.fromDate && options.toDate) {
+                    evaluations = evaluations.filter(eval => {
+                        const evalDate = new Date(eval.date);
+                        return evalDate >= new Date(options.fromDate) && evalDate <= new Date(options.toDate);
+                    });
+                } else if (options.dateRange === 'current-quarter') {
+                    const currentDate = new Date();
+                    const quarterStart = new Date(currentDate.getFullYear(), Math.floor(currentDate.getMonth() / 3) * 3, 1);
+                    evaluations = evaluations.filter(eval => new Date(eval.date) >= quarterStart);
+                }
+                
+                dataToExport.evaluations = evaluations;
+            }
+            
+            // Generate and download file based on format
+            switch (options.format) {
+                case 'csv':
+                    downloadCSV(dataToExport);
+                    break;
+                case 'excel':
+                    downloadExcel(dataToExport);
+                    break;
+                case 'pdf':
+                    generatePDFReport(dataToExport);
+                    break;
+            }
+        }
+
+        function downloadCSV(data) {
+            let csvContent = "";
+            
+            if (data.employees) {
+                csvContent += "Employee Data\n";
+                csvContent += "Name,Position,Department,Level,Status,Email,Phone,Hire Date\n";
+                data.employees.forEach(emp => {
+                    csvContent += `${emp.name},${emp.position},${emp.department},${emp.level},${emp.status},${emp.email},${emp.phone},${emp.hireDate}\n`;
+                });
+                csvContent += "\n";
+            }
+            
+            if (data.evaluations) {
+                csvContent += "Evaluation Data\n";
+                csvContent += "Employee ID,Quarter,Date,Type,Status,Managerial Level\n"; // Removed Overall Score as it's not in sample data
+                data.evaluations.forEach(eval => {
+                    csvContent += `${eval.employeeId},${eval.quarter},${eval.date},${eval.type},${eval.status},${eval.managerialLevel}\n`;
+                });
+            }
+            
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `hr_data_export_${new Date().toISOString().split('T')[0]}.csv`;
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+
+        function downloadExcel(data) {
+            // Simplified Excel export (would typically use a library like SheetJS)
+            console.log('Excel export functionality would be implemented with a library like SheetJS in a production environment.');
+            // Using a custom message box instead of alert
+            showMessageBox('Excel Export', 'Excel export functionality would be implemented with a library like SheetJS in a production environment.');
+        }
+
+        function generatePDFReport(data) {
+            // Simplified PDF generation (would typically use a library like jsPDF)
+            console.log('PDF report generation would be implemented with a library like jsPDF in a production environment.');
+            // Using a custom message box instead of alert
+            showMessageBox('PDF Report', 'PDF report generation would be implemented with a library like jsPDF in a production environment.');
+        }
+
+        function toggleCustomDateRange() {
+            const customRange = document.getElementById('custom-date-range');
+            if (exportDateRange.value === 'custom') {
+                customRange.style.display = 'flex';
+            } else {
+                customRange.style.display = 'none';
+            }
+        }
+
+        // Report Generation Functions
+        function handleReportGeneration(e) {
+            e.preventDefault();
+            
+            const reportOptions = {
+                type: document.getElementById('report-type').value,
+                period: document.getElementById('report-period').value,
+                fromDate: document.getElementById('report-from-date').value,
+                toDate: document.getElementById('report-to-date').value,
+                departments: Array.from(document.getElementById('report-departments').selectedOptions).map(option => option.value)
+            };
+            
+            generateReport(reportOptions);
+            reportModal.style.display = 'none';
+        }
+
+        function generateReport(options) {
+            // Filter data based on period and departments
+            let filteredEvaluations = evaluationsData;
+            
+            // Apply date filtering
+            if (options.period === 'custom' && options.fromDate && options.toDate) {
+                filteredEvaluations = filteredEvaluations.filter(eval => {
+                    const evalDate = new Date(eval.date);
+                    return evalDate >= new Date(options.fromDate) && evalDate <= new Date(options.toDate);
+                });
+            }
+            
+            // Apply department filtering
+            if (options.departments.length > 0) {
+                filteredEvaluations = filteredEvaluations.filter(eval => {
+                    const employee = employeesData.find(emp => emp.id === eval.employeeId);
+                    return employee && options.departments.includes(employee.department.toLowerCase().replace(' ', ''));
+                });
+            }
+            
+            // Generate report based on type
+            switch (options.type) {
+                case 'department':
+                    generateDepartmentReport(filteredEvaluations);
+                    break;
+                case 'individual':
+                    generateIndividualReport(filteredEvaluations);
+                    break;
+                case 'competency':
+                    generateCompetencyReport(filteredEvaluations);
+                    break;
+                case 'trends':
+                    generateTrendsReport(filteredEvaluations);
+                    break;
+                case 'comprehensive':
+                    generateComprehensiveReport(filteredEvaluations);
+                    break;
+            }
+        }
+
+        function generateDepartmentReport(evaluations) {
+            const departmentStats = {};
+            
+            evaluations.forEach(eval => {
+                const employee = employeesData.find(emp => emp.id === eval.employeeId);
+                if (employee) {
+                    if (!departmentStats[employee.department]) {
+                        departmentStats[employee.department] = {
+                            totalScore: 0, // Placeholder, as overallScore is not in sample data
+                            count: 0,
+                            employees: []
+                        };
+                    }
+                    // departmentStats[employee.department].totalScore += eval.overallScore; // This line would be active if overallScore existed
+                    departmentStats[employee.department].count++;
+                    departmentStats[employee.department].employees.push(employee.name);
+                }
+            });
+            
+            // Calculate averages and display report
+            let reportContent = "Department Performance Report\n\n";
+            Object.keys(departmentStats).forEach(dept => {
+                const stats = departmentStats[dept];
+                // const average = (stats.totalScore / stats.count).toFixed(2); // This line would be active if overallScore existed
+                reportContent += `${dept}: ${stats.count} evaluations processed.\n`; // Modified for demo
+            });
+            
+            showMessageBox('Department Report', reportContent);
+        }
+
+        function generateIndividualReport(evaluations) {
+            showMessageBox('Individual Report', 'Individual performance report generated. This would typically open a detailed view or download a file.');
+        }
+
+        function generateCompetencyReport(evaluations) {
+            showMessageBox('Competency Report', 'Competency analysis report generated. This would show competency strengths and areas for improvement.');
+        }
+
+        function generateTrendsReport(evaluations) {
+            showMessageBox('Trends Report', 'Performance trends report generated. This would show performance changes over time.');
+        }
+
+        function generateComprehensiveReport(evaluations) {
+            showMessageBox('Comprehensive Report', 'Comprehensive report generated. This would include all performance metrics and analytics.');
+        }
+
+        function toggleCustomReportPeriod() {
+            const customPeriod = document.getElementById('custom-report-period');
+            if (reportPeriod.value === 'custom') {
+                customPeriod.style.display = 'flex';
+            } else {
+                customPeriod.style.display = 'none';
+            }
+        }
+
+        // Analytics and Charts
+        function initializeCharts() {
+            // Department Performance Chart
+            const departmentCtx = document.getElementById('departmentChart');
+            if (departmentCtx) {
+                new Chart(departmentCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['HR', 'IT', 'Finance', 'Marketing'],
+                        datasets: [{
+                            label: 'Average Score',
+                            data: [4.2, 4.5, 4.1, 4.3],
+                            backgroundColor: ['#3498db', '#2ecc71', '#e74c3c', '#f39c12']
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 5
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // Performance Trends Chart
+            const trendsCtx = document.getElementById('trendsChart');
+            if (trendsCtx) {
+                new Chart(trendsCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Q1 2023', 'Q2 2023', 'Q3 2023', 'Q4 2023', 'Q1 2024'],
+                        datasets: [{
+                            label: 'Average Performance',
+                            data: [3.8, 4.0, 4.2, 4.1, 4.3],
+                            borderColor: '#3498db',
+                            tension: 0.1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 5
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // Competency Distribution Chart
+            const competencyCtx = document.getElementById('competencyChart');
+            if (competencyCtx) {
+                new Chart(competencyCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Excellent (4.5-5)', 'Good (3.5-4.4)', 'Average (2.5-3.4)', 'Below Average (<2.5)'],
+                        datasets: [{
+                            data: [35, 45, 15, 5],
+                            backgroundColor: ['#2ecc71', '#3498db', '#f39c12', '#e74c3c']
+                        }]
+                    },
+                    options: {
+                        responsive: true
+                    }
+                });
+            }
+            
+            // Goal Achievement Chart
+            const goalsCtx = document.getElementById('goalsChart');
+            if (goalsCtx) {
+                new Chart(goalsCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Exceeded', 'Met', 'Partially Met', 'Not Met'],
+                        datasets: [{
+                            label: 'Percentage',
+                            data: [25, 60, 12, 3],
+                            backgroundColor: ['#2ecc71', '#3498db', '#f39c12', '#e74c3c']
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 100
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        // Enhanced Search Functionality
+        function enhancedSearch(query) {
+            const searchTerms = query.toLowerCase().split(' ');
+            
+            return employeesData.filter(employee => {
+                const searchableText = `
+                    ${employee.name} 
+                    ${employee.position} 
+                    ${employee.department} 
+                    ${employee.level} 
+                    ${employee.email}
+                `.toLowerCase();
+                
+                return searchTerms.every(term => searchableText.includes(term));
+            });
+        }
+
+        // Update the existing search input handler
+        function filterEmployees() {
+            const searchQuery = searchInput.value;
+            const departmentValue = departmentFilter.value;
+            const statusValue = statusFilter.value;
+            
+            let filteredEmployees = employeesData;
+            
+            // Enhanced search
+            if (searchQuery) {
+                filteredEmployees = enhancedSearch(searchQuery);
+            }
+            
+            // Department filter
+            if (departmentValue !== 'all') {
+                filteredEmployees = filteredEmployees.filter(employee => 
+                    employee.department.toLowerCase().replace(' ', '') === departmentValue
+                );
+            }
+            
+            // Status filter
+            if (statusValue !== 'all') {
+                filteredEmployees = filteredEmployees.filter(employee => 
+                    employee.status === statusValue
+                );
+            }
+            
+            populateEmployeesTable(filteredEmployees);
+        }
+
+        // Functions for Adding New Competencies and Objectives
+        function handleAddCompetency() {
+            const competencyType = document.getElementById('competency-type').value;
+            const competencyName = competencyNameInput.value;
+            const requiredLevel = document.getElementById('required-level').value;
+            const actualLevel = document.getElementById('actual-level').value;
+            const weight = document.getElementById('competency-weight').value;
+            const description = competencyDescriptionTextarea.value;
+
+            if (!competencyType || !competencyName || !requiredLevel || !actualLevel || !weight) {
+                showMessageBox('Input Error', 'Please fill in all required fields for the new competency.');
+                return;
+            }
+
+            // Calculate score percentage
+            const score = ((parseInt(actualLevel) / parseInt(requiredLevel)) * parseInt(weight)).toFixed(2);
+            
+            // Generate unique ID
+            const competencyId = 'comp_' + Date.now();
+            
+            // Determine which table to add to
+            let targetTableBody;
+            if (competencyType === 'core') {
+                targetTableBody = document.querySelector('#core-competencies-form tbody');
+            } else if (competencyType === 'leadership') {
+                targetTableBody = document.querySelector('#leadership-competencies-form tbody');
+            } else if (competencyType === 'functional') {
+                targetTableBody = document.querySelector('#functional-competencies-form tbody');
+            }
+
+            if (targetTableBody) {
+                // Create new row
+                const newRow = document.createElement('tr');
+                newRow.className = 'editable-row';
+                newRow.setAttribute('data-id', competencyId);
+                
+                newRow.innerHTML = `
+                    <td>
+                        <span class="view-mode">${competencyName}</span>
+                        <input type="text" class="edit-mode hidden" value="${competencyName}" name="competency">
+                    </td>
+                    <td>
+                        <span class="view-mode">${requiredLevel}</span>
+                        <input type="number" class="edit-mode hidden" value="${requiredLevel}" min="1" max="10" name="required">
+                    </td>
+                    <td>
+                        <span class="view-mode">${actualLevel}</span>
+                        <input type="number" class="edit-mode hidden" value="${actualLevel}" min="1" max="10" name="actual">
+                    </td>
+                    <td>
+                        <span class="view-mode">${weight}%</span>
+                        <input type="number" class="edit-mode hidden" value="${weight}" min="0" max="100" name="weight">%
+                    </td>
+                    <td>
+                        <span class="view-mode">${score}%</span>
+                        <span class="edit-mode hidden score-value">${score}%</span>
+                    </td>
+                    <td class="edit-mode hidden">
+                        <button type="button" class="action-btn delete-competency" data-id="${competencyId}"><i class="fas fa-trash"></i></button>
+                    </td>
+                `;
+                
+                targetTableBody.appendChild(newRow);
+                
+                // Add event listeners for the new row
+                addCompetencyRowListeners(newRow);
+                
+                // Close modal and reset form
+                newCompetencyModal.style.display = 'none';
+                newCompetencyForm.reset();
+                
+                // Recalculate total scores for all competencies
+                updateAllCompetencyScores();
+                
+                showMessageBox('Success', 'Competency added successfully!');
+            }
+        }
+
+        function handleAddObjective() {
+            const objectiveName = objectiveNameInput.value;
+            const targetValue = document.getElementById('target-value').value;
+            const actualValue = document.getElementById('actual-value').value;
+            const weight = document.getElementById('objective-weight').value;
+            const description = objectiveDescriptionTextarea.value;
+
+            if (!objectiveName || !targetValue || !actualValue || !weight) {
+                showMessageBox('Input Error', 'Please fill in all required fields for the new objective.');
+                return;
+            }
+
+            // Calculate achievement percentage
+            const achievement = ((parseFloat(actualValue) / parseFloat(targetValue)) * 100).toFixed(2);
+            const score = ((parseFloat(actualValue) / parseFloat(targetValue)) * parseFloat(weight)).toFixed(2);
+            
+            // Generate unique ID
+            const objectiveId = 'obj_' + Date.now();
+            
+            // Get objectives table body
+            const targetTableBody = document.querySelector('#objectives-form tbody');
+
+            if (targetTableBody) {
+                // Create new row
+                const newRow = document.createElement('tr');
+                newRow.className = 'editable-row';
+                newRow.setAttribute('data-id', objectiveId);
+                
+                newRow.innerHTML = `
+                    <td>
+                        <span class="view-mode">${objectiveName}</span>
+                        <input type="text" class="edit-mode hidden" value="${objectiveName}" name="objective">
+                    </td>
+                    <td>
+                        <span class="view-mode">${targetValue}</span>
+                        <input type="number" class="edit-mode hidden" value="${targetValue}" min="0" name="target">
+                    </td>
+                    <td>
+                        <span class="view-mode">${actualValue}</span>
+                        <input type="number" class="edit-mode hidden" value="${actualValue}" min="0" name="actual">
+                    </td>
+                    <td>
+                        <span class="view-mode">${achievement}%</span>
+                        <span class="edit-mode hidden achievement-value">${achievement}%</span>
+                    </td>
+                    <td>
+                        <span class="view-mode">${weight}%</span>
+                        <input type="number" class="edit-mode hidden" value="${weight}" min="0" max="100" name="weight">%
+                    </td>
+                    <td>
+                        <span class="view-mode">${score}%</span>
+                        <span class="edit-mode hidden score-value">${score}%</span>
+                    </td>
+                    <td class="edit-mode hidden">
+                        <button type="button" class="action-btn delete-objective" data-id="${objectiveId}"><i class="fas fa-trash"></i></button>
+                    </td>
+                `;
+                
+                targetTableBody.appendChild(newRow);
+                
+                // Add event listeners for the new row
+                addObjectiveRowListeners(newRow);
+                
+                // Close modal and reset form
+                newObjectiveModal.style.display = 'none';
+                newObjectiveForm.reset();
+                
+                // Recalculate total scores
+                calculateTotalScore();
+                
+                showMessageBox('Success', 'Objective added successfully!');
+            }
+        }
+
+        function addCompetencyRowListeners(row) {
+            const inputs = row.querySelectorAll('input[name="required"], input[name="actual"], input[name="weight"]');
+            inputs.forEach(input => {
+                input.addEventListener('input', () => updateCompetencyScore(row));
+            });
+            const deleteButton = row.querySelector('.delete-competency');
+            if (deleteButton) {
+                deleteButton.addEventListener('click', () => confirmDeletion(row, 'competency'));
+            }
+        }
+
+        function addObjectiveRowListeners(row) {
+            const inputs = row.querySelectorAll('input[name="target"], input[name="actual"], input[name="weight"]');
+            inputs.forEach(input => {
+                input.addEventListener('input', () => updateObjectiveScore(row));
+            });
+            const deleteButton = row.querySelector('.delete-objective');
+            if (deleteButton) {
+                deleteButton.addEventListener('click', () => confirmDeletion(row, 'objective'));
+            }
+        }
+
+        // Confirmation Modal Functions
+        function showMessageBox(title, message) {
+            const messageBoxModal = document.createElement('div');
+            messageBoxModal.className = 'modal';
+            messageBoxModal.innerHTML = `
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>${title}</h2>
+                        <span class="close">&times;</span>
+                    </div>
+                    <div class="modal-body">
+                        <p>${message}</p>
+                    </div>
+                    <div class="modal-footer form-actions">
+                        <button type="button" class="btn primary close-message-box">OK</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(messageBoxModal);
+            messageBoxModal.style.display = 'block';
+
+            const closeBtn = messageBoxModal.querySelector('.close');
+            const okBtn = messageBoxModal.querySelector('.close-message-box');
+
+            const closeMessageBox = () => {
+                messageBoxModal.style.display = 'none';
+                messageBoxModal.remove();
+            };
+
+            closeBtn.addEventListener('click', closeMessageBox);
+            okBtn.addEventListener('click', closeMessageBox);
+            window.addEventListener('click', (e) => {
+                if (e.target === messageBoxModal) {
+                    closeMessageBox();
+                }
+            });
+        }
+
+        function confirmDeletion(row, type) {
+            itemToDelete = { row: row, type: type };
+            confirmationModal.style.display = 'block';
+        }
+
+        function performDeletion() {
+            if (itemToDelete) {
+                const { row, type } = itemToDelete;
+                row.remove();
+                if (type === 'competency') {
+                    updateAllCompetencyScores();
+                } else if (type === 'objective') {
+                    calculateTotalScore();
+                }
+                showMessageBox('Deleted', `${type.charAt(0).toUpperCase() + type.slice(1)} deleted successfully.`);
+                itemToDelete = null; // Clear the item to delete
+            }
+            confirmationModal.style.display = 'none';
+        }
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            // Delay chart initialization to ensure Chart.js is loaded
+            setTimeout(initializeCharts, 100);
+            
+            // Set up new evaluation modal
+            if (newEvaluationBtn) {
+                newEvaluationBtn.addEventListener('click', function() {
+                    newEvaluationModal.style.display = 'block';
+                });
+            }
+            
+            if (closeEvaluationModal) {
+                closeEvaluationModal.addEventListener('click', function() {
+                    newEvaluationModal.style.display = 'none';
+                });
+            }
+            
+            if (cancelEvaluationBtn) {
+                cancelEvaluationBtn.addEventListener('click', function() {
+                    newEvaluationModal.style.display = 'none';
+                });
+            }
+            
+            // Close evaluation modal when clicking outside
+            window.addEventListener('click', function(e) {
+                if (e.target === newEvaluationModal) {
+                    newEvaluationModal.style.display = 'none';
+                }
+            });
+            
+            // Handle new evaluation form submission
+            if (newEvaluationForm) {
+                newEvaluationForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Get form values
+                    const newEvaluation = {
+                        id: evaluationsData.length + 1,
+                        employeeId: currentEmployeeId,
+                        quarter: document.getElementById('eval-quarter').value,
+                        date: document.getElementById('eval-date').value,
+                        type: document.getElementById('eval-type').value === 'quarterly' ? 'Quarterly Review' : 'Annual Review',
+                        status: 'draft',
+                        managerialLevel: document.getElementById('eval-managerial-level').value
+                    };
+                    
+                    // Add to data
+                    evaluationsData.push(newEvaluation);
+                    
+                    // Update evaluation history
+                    populateEvaluationHistory(currentEmployeeId);
+                    
+                    // Close modal and reset form
+                    newEvaluationModal.style.display = 'none';
+                    newEvaluationForm.reset();
+                    showMessageBox('Success', 'New evaluation created successfully!');
+                });
+            }
+            
+            // Evaluation Edit Functionality
+            if (editEvaluationBtn) {
+                editEvaluationBtn.addEventListener('click', function() {
+                    enterEditMode();
+                });
+            }
+
+            if (saveEvaluationBtn) {
+                saveEvaluationBtn.addEventListener('click', function() {
+                    saveChanges();
+                });
+            }
+
+            if (cancelEvaluationEditBtn) {
+                cancelEvaluationEditBtn.addEventListener('click', function() {
+                    cancelEdit();
+                });
+            }
+
+            // Input change handlers for competency forms
+            document.querySelectorAll('#core-competencies-form input, #leadership-competencies-form input, #functional-competencies-form input').forEach(input => {
+                input.addEventListener('change', function() {
+                    if (input.name === 'actual' || input.name === 'weight' || input.name === 'required') {
+                        updateCompetencyScore(this.closest('tr'));
+                    }
+                });
+            });
+
+            // Input change handlers for objectives form
+            document.querySelectorAll('#objectives-form input').forEach(input => {
+                input.addEventListener('change', function() {
+                    if (input.name === 'target' || input.name === 'actual' || input.name === 'weight') {
+                        updateObjectiveScore(this.closest('tr'));
+                    }
+                });
+            });
+
+            // Set up navigation
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show corresponding section
+                    const targetId = this.textContent.trim().toLowerCase();
+                    showSection(targetId === 'dashboard' ? 'dashboard' : 'employees');
+                });
+            });
+            
+            // Set up employees link
+            if (employeesLink) {
+                employeesLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showSection('employees');
+                    populateEmployeesTable();
+                });
+            }
+            
+            // Set up search functionality
+            if (searchInput) {
+                searchInput.addEventListener('input', function() {
+                    populateEmployeesTable();
+                });
+            }
+            
+            // Set up filters
+            if (departmentFilter) {
+                departmentFilter.addEventListener('change', populateEmployeesTable);
+            }
+            if (statusFilter) {
+                statusFilter.addEventListener('change', populateEmployeesTable);
+            }
+            
+            // Set up new employee modal
+            if (newEmployeeBtn) {
+                newEmployeeBtn.addEventListener('click', function() {
+                    newEmployeeModal.style.display = 'block';
+                });
+            }
+            
+            if (closeEmployeeModal) {
+                closeEmployeeModal.addEventListener('click', function() {
+                    newEmployeeModal.style.display = 'none';
+                });
+            }
+            
+            if (cancelEmployeeBtn) {
+                cancelEmployeeBtn.addEventListener('click', function() {
+                    newEmployeeModal.style.display = 'none';
+                });
+            }
+            
+            // New Competency Event Listeners
+            if (addCompetencyBtn) {
+                addCompetencyBtn.addEventListener('click', function() {
+                    newCompetencyModal.style.display = 'block';
+                });
+            }
+            
+            if (cancelCompetencyBtn) {
+                cancelCompetencyBtn.addEventListener('click', function() {
+                    newCompetencyModal.style.display = 'none';
+                    newCompetencyForm.reset();
+                });
+            }
+            
+            if (closeCompetencyModal) {
+                closeCompetencyModal.addEventListener('click', function() {
+                    newCompetencyModal.style.display = 'none';
+                    newCompetencyForm.reset();
+                });
+            }
+            
+            if (saveCompetencyBtn) {
+                saveCompetencyBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    handleAddCompetency();
+                });
+            }
+
+            // Gemini API Suggestion Buttons
+            if (suggestCompetencyDescriptionBtn) {
+                suggestCompetencyDescriptionBtn.addEventListener('click', suggestCompetencyDescription);
+            }
+            
+            // New Objective Event Listeners
+            if (addObjectiveBtn) {
+                addObjectiveBtn.addEventListener('click', function() {
+                    newObjectiveModal.style.display = 'block';
+                });
+            }
+            
+            if (cancelObjectiveBtn) {
+                cancelObjectiveBtn.addEventListener('click', function() {
+                    newObjectiveModal.style.display = 'none';
+                    newObjectiveForm.reset();
+                });
+            }
+            
+            if (closeObjectiveModal) {
+                closeObjectiveModal.addEventListener('click', function() {
+                    newObjectiveModal.style.display = 'none';
+                    newObjectiveForm.reset();
+                });
+            }
+            
+            if (saveObjectiveBtn) {
+                saveObjectiveBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    handleAddObjective();
+                });
+            }
+
+            if (suggestObjectiveDescriptionBtn) {
+                suggestObjectiveDescriptionBtn.addEventListener('click', suggestObjectiveDescription);
+            }
+            
+            // Enhancement Event Listeners
+            if (advancedSearchBtn) {
+                advancedSearchBtn.addEventListener('click', function() {
+                    advancedSearchModal.style.display = 'block';
+                });
+            }
+            
+            if (closeAdvancedSearch) {
+                closeAdvancedSearch.addEventListener('click', function() {
+                    advancedSearchModal.style.display = 'none';
+                });
+            }
+            
+            if (advancedSearchForm) {
+                advancedSearchForm.addEventListener('submit', handleAdvancedSearch);
+            }
+            
+            if (clearFiltersBtn) {
+                clearFiltersBtn.addEventListener('click', clearAdvancedFilters);
+            }
+            
+            if (exportDataBtn) {
+                exportDataBtn.addEventListener('click', function() {
+                    exportModal.style.display = 'block';
+                });
+            }
+            
+            if (closeExportModal) {
+                closeExportModal.addEventListener('click', function() {
+                    exportModal.style.display = 'none';
+                });
+            }
+            
+            if (cancelExportBtn) {
+                cancelExportBtn.addEventListener('click', function() {
+                    exportModal.style.display = 'none';
+                });
+            }
+            
+            if (exportForm) {
+                exportForm.addEventListener('submit', handleDataExport);
+            }
+            
+            if (exportDateRange) {
+                exportDateRange.addEventListener('change', toggleCustomDateRange);
+            }
+            
+            if (generateReportBtn) {
+                generateReportBtn.addEventListener('click', function() {
+                    reportModal.style.display = 'block';
+                });
+            }
+            
+            if (closeReportModal) {
+                closeReportModal.addEventListener('click', function() {
+                    reportModal.style.display = 'none';
+                });
+            }
+            
+            if (cancelReportBtn) {
+                cancelReportBtn.addEventListener('click', function() {
+                    reportModal.style.display = 'none';
+                });
+            }
+            
+            if (reportForm) {
+                reportForm.addEventListener('submit', handleReportGeneration);
+            }
+            
+            if (reportPeriod) {
+                reportPeriod.addEventListener('change', toggleCustomReportPeriod);
+            }
+
+            // Confirmation Modal Event Listeners
+            if (closeConfirmationModal) {
+                closeConfirmationModal.addEventListener('click', function() {
+                    confirmationModal.style.display = 'none';
+                    itemToDelete = null;
+                });
+            }
+
+            if (cancelDeleteBtn) {
+                cancelDeleteBtn.addEventListener('click', function() {
+                    confirmationModal.style.display = 'none';
+                    itemToDelete = null;
+                });
+            }
+
+            if (confirmDeleteBtn) {
+                confirmDeleteBtn.addEventListener('click', performDeletion);
+            }
+            
+            // Close modal when clicking outside
+            window.addEventListener('click', function(e) {
+                if (e.target === newEmployeeModal) {
+                    newEmployeeModal.style.display = 'none';
+                }
+                if (e.target === newCompetencyModal) {
+                    newCompetencyModal.style.display = 'none';
+                    newCompetencyForm.reset();
+                }
+                if (e.target === newObjectiveModal) {
+                    newObjectiveModal.style.display = 'none';
+                    newObjectiveForm.reset();
+                }
+                if (e.target === advancedSearchModal) {
+                    advancedSearchModal.style.display = 'none';
+                }
+                if (e.target === exportModal) {
+                    exportModal.style.display = 'none';
+                }
+                if (e.target === reportModal) {
+                    reportModal.style.display = 'none';
+                }
+                if (e.target === confirmationModal) {
+                    confirmationModal.style.display = 'none';
+                    itemToDelete = null;
+                }
+            });
+            
+            // Handle new employee form submission
+            if (newEmployeeForm) {
+                newEmployeeForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Get form values
+                    const newEmployee = {
+                        id: employeesData.length + 1,
+                        name: document.getElementById('emp-name').value,
+                        position: document.getElementById('emp-position').value,
+                        department: document.getElementById('emp-department').value,
+                        level: document.getElementById('emp-level').value,
+                        status: 'active',
+                        email: document.getElementById('emp-email').value,
+                        phone: document.getElementById('emp-phone').value,
+                        hireDate: document.getElementById('emp-hire-date').value,
+                        function: document.getElementById('emp-department').value // Simplified for demo
+                    };
+                    
+                    // Add to data
+                    employeesData.push(newEmployee);
+                    
+                    // Update table
+                    populateEmployeesTable();
+                    
+                    // Close modal and reset form
+                    newEmployeeModal.style.display = 'none';
+                    newEmployeeForm.reset();
+                    showMessageBox('Success', 'New employee added successfully!');
+                });
+            }
+            
+            // Set up back buttons
+            if (backToEmployeesBtn) {
+                backToEmployeesBtn.addEventListener('click', function() {
+                    showSection('employees');
+                });
+            }
+            
+            if (backToProfileBtn) { // Added null check
+                backToProfileBtn.addEventListener('click', function() {
+                    showSection('employee-profile');
+                });
+            }
+
+            // Set up profile tabs
+            profileTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    profileTabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show corresponding tab content
+                    const tabId = this.getAttribute('data-tab');
+                    document.querySelectorAll('.tab-content').forEach(content => {
+                        content.classList.add('hidden');
+                    });
+                    document.getElementById(tabId).classList.remove('hidden');
+                });
+            });
+            
+            // Set up evaluation tabs
+            evaluationTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    evaluationTabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show corresponding tab content
+                    const tabId = this.getAttribute('data-tab');
+                    document.querySelectorAll('#evaluation-detail .tab-content').forEach(content => {
+                        content.classList.add('hidden');
+                    });
+                    document.getElementById(tabId).classList.remove('hidden');
+                });
+            });
+            
+            // Initialize with employees table
+            populateEmployeesTable();
+
+            // Add listeners to existing competency and objective rows
+            document.querySelectorAll('.competency-table .editable-row').forEach(addCompetencyRowListeners);
+            document.querySelectorAll('.objectives-table .editable-row').forEach(addObjectiveRowListeners);
+
+            // Initial calculation of total scores
+            calculateTotalScore();
+
+            // Add event listener for the summarize comments button
+            if (summarizeCommentsBtn) {
+                summarizeCommentsBtn.addEventListener('click', summarizeManagerComments);
+            }
+
+            // Add event listener for the generate PIP button
+            if (generatePipBtn) {
+                generatePipBtn.addEventListener('click', generatePerformanceImprovementPlan);
+            }
+        });
+
+        // Function to show a specific section
+        function showSection(sectionId) {
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            document.getElementById(sectionId).classList.add('active');
+        }
+
+        // Function to enter edit mode
+        function enterEditMode() {
+            // Show save and cancel buttons, hide edit button
+            editEvaluationBtn.classList.add('hidden');
+            saveEvaluationBtn.classList.remove('hidden');
+            cancelEvaluationBtn.classList.remove('hidden');
+
+            // Show edit mode elements, hide view mode elements
+            document.querySelectorAll('.view-mode').forEach(el => {
+                el.classList.add('hidden');
+            });
+
+            document.querySelectorAll('.edit-mode').forEach(el => {
+                el.classList.remove('hidden');
+            });
+        }
+
+        // Function to save changes
+        function saveChanges() {
+            // Update all view mode values with edit mode values
+            document.querySelectorAll('.editable-row').forEach(row => {
+                const inputs = row.querySelectorAll('input');
+                inputs.forEach(input => {
+                    const fieldName = input.name;
+                    const newValue = input.value;
+                    const viewModeEl = row.querySelector(`td:nth-child(${Array.from(input.parentNode.parentNode.children).indexOf(input.parentNode) + 1}) .view-mode`);
+                    
+                    if (viewModeEl) {
+                        // Add % sign for weight fields and achievement/score fields
+                        if (fieldName === 'weight' || viewModeEl.classList.contains('achievement-value') || viewModeEl.classList.contains('score-value')) {
+                            viewModeEl.textContent = newValue + '%';
+                        } else {
+                            viewModeEl.textContent = newValue;
+                        }
+                    }
+                });
+            });
+
+            // Recalculate total score for objectives
+            calculateTotalScore();
+            updateAllCompetencyScores();
+
+            // Exit edit mode
+            exitEditMode();
+            showMessageBox('Saved', 'Changes saved successfully!');
+        }
+
+        // Function to cancel edit
+        function cancelEdit() {
+            // Reset form values to original values
+            editableForms.forEach(form => {
+                form.reset();
+            });
+
+            // Exit edit mode
+            exitEditMode();
+            showMessageBox('Cancelled', 'Edit cancelled. Changes were not saved.');
+        }
+
+        // Function to exit edit mode
+        function exitEditMode() {
+            // Hide save and cancel buttons, show edit button
+            editEvaluationBtn.classList.remove('hidden');
+            saveEvaluationBtn.classList.add('hidden');
+            cancelEvaluationBtn.classList.add('hidden');
+
+            // Hide edit mode elements, show view mode elements
+            document.querySelectorAll('.edit-mode').forEach(el => {
+                el.classList.add('hidden');
+            });
+
+            document.querySelectorAll('.view-mode').forEach(el => {
+                el.classList.remove('hidden');
+            });
+        }
+
+        // Function to update competency score for a single row
+        function updateCompetencyScore(row) {
+            const actualInput = row.querySelector('input[name="actual"]');
+            const requiredInput = row.querySelector('input[name="required"]');
+            const weightInput = row.querySelector('input[name="weight"]');
+            const scoreElement = row.querySelector('.score-value');
+
+            if (actualInput && requiredInput && weightInput && scoreElement) {
+                const actual = parseFloat(actualInput.value);
+                const required = parseFloat(requiredInput.value);
+                const weight = parseFloat(weightInput.value);
+
+                // Calculate score based on actual vs required level and weight
+                const ratio = required > 0 ? Math.min(actual / required, 1) : 0; // Cap at 100%, handle division by zero
+                const score = (ratio * weight).toFixed(2);
+                
+                scoreElement.textContent = score + '%';
+            }
+        }
+
+        // Function to update all competency scores
+        function updateAllCompetencyScores() {
+            document.querySelectorAll('.competency-table .editable-row').forEach(row => {
+                updateCompetencyScore(row);
+            });
+        }
+
+        // Function to update objective score for a single row
+        function updateObjectiveScore(row) {
+            const targetInput = row.querySelector('input[name="target"]');
+            const actualInput = row.querySelector('input[name="actual"]');
+            const weightInput = row.querySelector('input[name="weight"]');
+            const achievementElement = row.querySelector('.achievement-value');
+            const scoreElement = row.querySelector('.score-value');
+
+            if (targetInput && actualInput && weightInput && achievementElement && scoreElement) {
+                const target = parseFloat(targetInput.value);
+                const actual = parseFloat(actualInput.value);
+                const weight = parseFloat(weightInput.value);
+
+                // Calculate achievement percentage
+                let achievement;
+                if (target === 0) {
+                    achievement = 0;
+                } else {
+                    // For metrics where lower is better (like bug count), invert the ratio
+                    if (row.dataset.id === 'bug') { // Assuming 'bug' is a unique identifier for this type of objective
+                        achievement = (target / actual) * 100;
+                    } else {
+                        achievement = (actual / target) * 100;
+                    }
+                }
+
+                // Calculate score based on achievement and weight
+                const score = ((achievement / 100) * weight).toFixed(2);
+                
+                achievementElement.textContent = achievement.toFixed(2) + '%';
+                scoreElement.textContent = score + '%';
+
+                // Update total score
+                calculateTotalScore();
+            }
+        }
+
+        // Function to calculate total score for objectives
+        function calculateTotalScore() {
+            const scoreElements = document.querySelectorAll('#objectives-form .score-value');
+            let totalScore = 0;
+
+            scoreElements.forEach(el => {
+                const score = parseFloat(el.textContent);
+                if (!isNaN(score)) {
+                    totalScore += score;
+                }
+            });
+
+            const totalScoreElement = document.getElementById('total-score');
+            if (totalScoreElement) {
+                totalScoreElement.textContent = totalScore.toFixed(2) + '%';
+            }
+        }
+
+        // Function to populate employees table with filtered data
+        function populateEmployeesTable() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const departmentValue = departmentFilter.value;
+            const statusValue = statusFilter.value;
+            
+            // Filter employees
+            const filteredEmployees = employeesData.filter(employee => {
+                // Search filter
+                const matchesSearch = employee.name.toLowerCase().includes(searchTerm) || 
+                                    employee.position.toLowerCase().includes(searchTerm);
+                
+                // Department filter
+                const matchesDepartment = departmentValue === 'all' || 
+                                        employee.department.toLowerCase() === departmentValue;
+                
+                // Status filter
+                const matchesStatus = statusValue === 'all' || 
+                                    employee.status === statusValue;
+                
+                return matchesSearch && matchesDepartment && matchesStatus;
+            });
+            
+            // Clear table
+            const tbody = employeesTable.querySelector('tbody');
+            tbody.innerHTML = '';
+            
+            // Add filtered employees to table
+            filteredEmployees.forEach(employee => {
+                const row = document.createElement('tr');
+                
+                row.innerHTML = `
+                    <td>${employee.name}</td>
+                    <td>${employee.position}</td>
+                    <td>${employee.department}</td>
+                    <td>${employee.level}</td>
+                    <td><span class="status ${employee.status}">${employee.status.charAt(0).toUpperCase() + employee.status.slice(1)}</span></td>
+                    <td>
+                        <button class="action-btn view-employee" data-id="${employee.id}"><i class="fas fa-eye"></i></button>
+                        <button class="action-btn edit-employee" data-id="${employee.id}"><i class="fas fa-edit"></i></button>
+                    </td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+            
+            // Add event listeners to view buttons
+            document.querySelectorAll('.view-employee').forEach(button => {
+                button.addEventListener('click', function() {
+                    const employeeId = parseInt(this.getAttribute('data-id'));
+                    viewEmployeeProfile(employeeId);
+                });
+            });
+        }
+
+        // Function to view employee profile
+        function viewEmployeeProfile(employeeId) {
+            currentEmployeeId = employeeId;
+            const employee = employeesData.find(emp => emp.id === employeeId);
+            
+            if (employee) {
+                // Update profile information
+                document.getElementById('profile-name').textContent = employee.name;
+                document.getElementById('profile-position').textContent = employee.position;
+                document.getElementById('profile-department').textContent = employee.department;
+                document.getElementById('profile-function').textContent = employee.function;
+                document.getElementById('profile-hire-date').textContent = formatDate(employee.hireDate);
+                document.getElementById('profile-email').textContent = employee.email;
+                document.getElementById('profile-phone').textContent = employee.phone;
+                document.getElementById('profile-status').textContent = employee.status.charAt(0).toUpperCase() + employee.status.slice(1);
+                document.getElementById('profile-status').className = `status ${employee.status}`;
+                
+                // Populate evaluation history
+                populateEvaluationHistory(employeeId);
+                
+                // Show profile section
+                showSection('employee-profile');
+            }
+        }
+
+        // Function to populate evaluation history
+        function populateEvaluationHistory(employeeId) {
+            const evaluations = evaluationsData.filter(eval => eval.employeeId === employeeId);
+            const tbody = document.querySelector('#evaluation-history table tbody');
+            tbody.innerHTML = '';
+            
+            evaluations.forEach(evaluation => {
+                const row = document.createElement('tr');
+                
+                row.innerHTML = `
+                    <td>${evaluation.quarter}</td>
+                    <td>${formatDate(evaluation.date)}</td>
+                    <td>${evaluation.type}</td>
+                    <td>${formatManagerialLevel(evaluation.managerialLevel)}</td>
+                    <td><span class="status-badge ${evaluation.status}">${formatStatus(evaluation.status)}</span></td>
+                    <td>
+                        <button class="action-btn view-evaluation" data-id="${evaluation.id}"><i class="fas fa-eye"></i></button>
+                    </td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+            
+            // Add event listeners to view evaluation buttons
+            document.querySelectorAll('.view-evaluation').forEach(button => {
+                button.addEventListener('click', function() {
+                    const evaluationId = parseInt(this.getAttribute('data-id'));
+                    viewEvaluationDetail(evaluationId);
+                });
+            });
+        }
+
+        // Function to view evaluation detail
+        function viewEvaluationDetail(evaluationId) {
+            currentEvaluationId = evaluationId;
+            const evaluation = evaluationsData.find(eval => eval.id === evaluationId);
+            const employee = employeesData.find(emp => emp.id === evaluation.employeeId);
+            
+            if (evaluation && employee) {
+                // Update evaluation information
+                document.getElementById('eval-employee-name').textContent = employee.name;
+                document.getElementById('eval-quarter').textContent = evaluation.quarter;
+                document.getElementById('eval-type').textContent = evaluation.type;
+                document.getElementById('eval-status-badge').textContent = formatStatus(evaluation.status);
+                document.getElementById('eval-status-badge').className = `status-badge ${evaluation.status}`;
+                
+                // Show evaluation detail section
+                showSection('evaluation-detail');
+
+                // Re-attach event listeners for delete buttons when viewing evaluation detail
+                document.querySelectorAll('.competency-table .delete-competency').forEach(button => {
+                    const row = button.closest('tr');
+                    button.addEventListener('click', () => confirmDeletion(row, 'competency'));
+                });
+                document.querySelectorAll('.objectives-table .delete-objective').forEach(button => {
+                    const row = button.closest('tr');
+                    button.addEventListener('click', () => confirmDeletion(row, 'objective'));
+                });
+            }
+        }
+
+        // Helper function to format date
+        function formatDate(dateString) {
+            const options = { day: 'numeric', month: 'short', year: 'numeric' };
+            return new Date(dateString).toLocaleDateString('en-US', options);
+        }
+
+        // Helper function to format status
+        function formatStatus(status) {
+            switch (status) {
+                case 'draft':
+                    return 'Draft';
+                case 'submitted':
+                    return 'Submitted';
+                case 'approved':
+                    return 'Manager Approved';
+                case 'agreed':
+                    return 'Employee Agreed';
+                default:
+                    return status.charAt(0).toUpperCase() + status.slice(1);
+            }
+        }
+
+        // Helper function to format managerial level
+        function formatManagerialLevel(level) {
+            switch (level) {
+                case 'supervisory':
+                    return 'Supervisory';
+                case 'middle-management':
+                    return 'Middle Management';
+                case 'individual-contributor':
+                    return 'Individual Contributor';
+                default:
+                    return level ? level.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') : '';
+            }
+        }
+    </script>
+</body>
+</html>
